@@ -29,13 +29,14 @@ import javax.transaction.UserTransaction;
  * @author Saul
  */
 public class UsuarioJpaController implements Serializable {
-
+ private UserTransaction utx;
+    private EntityManagerFactory emf;
+    
     public UsuarioJpaController(UserTransaction utx, EntityManagerFactory emf) {
         this.utx = utx;
         this.emf = emf;
     }
-    private UserTransaction utx = null;
-    private EntityManagerFactory emf = null;
+   
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -46,8 +47,11 @@ public class UsuarioJpaController implements Serializable {
             usuario.setPersonaCollection(new ArrayList<Persona>());
         }
         EntityManager em = null;
+  
         try {
+            
             utx.begin();
+            
             em = getEntityManager();
             Rol rol = usuario.getRol();
             if (rol != null) {
@@ -81,6 +85,7 @@ public class UsuarioJpaController implements Serializable {
             }
             utx.commit();
         } catch (Exception ex) {
+
             try {
                 utx.rollback();
             } catch (Exception re) {

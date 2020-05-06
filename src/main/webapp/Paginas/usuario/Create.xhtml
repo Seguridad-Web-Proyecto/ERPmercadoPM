@@ -22,7 +22,7 @@
                         <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy" value="#{usuarioController.selected.fechaCreacion}" title="#{bundle.EditUsuarioTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_fechaCreacion}" showOn="button"/>
                         
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
+                    <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

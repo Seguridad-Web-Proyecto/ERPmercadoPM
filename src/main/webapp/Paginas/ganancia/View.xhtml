@@ -8,18 +8,20 @@
 
     <ui:composition>
 
-        <p:dialog id="GananciaViewDlg" widgetVar="GananciaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGananciaTitle}">
+        <p:dialog id="GananciaViewDlg" widgetVar="GananciaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Información">
             <h:form id="GananciaViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{gananciaController.selected != null}">
-                        <h:outputText value="#{bundle.ViewGananciaLabel_gananciaid}"/>
+                        <h:outputText value="Id de ganancia: "/>
                         <h:outputText value="#{gananciaController.selected.gananciaid}" title="#{bundle.ViewGananciaTitle_gananciaid}"/>
                         <h:outputText value="#{bundle.ViewGananciaLabel_porcentaje}"/>
                         <h:outputText value="#{gananciaController.selected.porcentaje}" title="#{bundle.ViewGananciaTitle_porcentaje}"/>
-                        <h:outputText value="#{bundle.ViewGananciaLabel_productoid}"/>
+                        <h:outputText value="Id de producto: "/>
                         <h:outputText value="#{gananciaController.selected.productoid}" title="#{bundle.ViewGananciaTitle_productoid}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="GananciaViewDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-sm btn-info" value="Aceptar" onclick="GananciaViewDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

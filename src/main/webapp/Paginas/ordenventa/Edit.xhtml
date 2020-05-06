@@ -12,9 +12,9 @@
             <h:form id="OrdenventaEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{ordenventaController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditOrdenventaLabel_ordenventaid}" for="ordenventaid" />
+                        <p:outputLabel value="Id de orden de venta:" for="ordenventaid" />
                         <p:inputText id="ordenventaid" value="#{ordenventaController.selected.ordenventaid}" title="#{bundle.EditOrdenventaTitle_ordenventaid}" required="true" requiredMessage="#{bundle.EditOrdenventaRequiredMessage_ordenventaid}"/>
-                        <p:outputLabel value="#{bundle.EditOrdenventaLabel_fechaVenta}" for="fechaVenta" />
+                        <p:outputLabel value="Fecha de venta:" for="fechaVenta" />
                         <p:calendar id="fechaVenta" pattern="MM/dd/yyyy" value="#{ordenventaController.selected.fechaVenta}" title="#{bundle.EditOrdenventaTitle_fechaVenta}" required="true" requiredMessage="#{bundle.EditOrdenventaRequiredMessage_fechaVenta}" showOn="button"/>
                         <p:outputLabel value="#{bundle.EditOrdenventaLabel_status}" for="status" />
                         <p:inputText id="status" value="#{ordenventaController.selected.status}" title="#{bundle.EditOrdenventaTitle_status}" required="true" requiredMessage="#{bundle.EditOrdenventaRequiredMessage_status}"/>
@@ -26,14 +26,14 @@
                         <p:inputText id="total" value="#{ordenventaController.selected.total}" title="#{bundle.EditOrdenventaTitle_total}" required="true" requiredMessage="#{bundle.EditOrdenventaRequiredMessage_total}"/>
                         <p:outputLabel value="#{bundle.EditOrdenventaLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{ordenventaController.selected.descripcion}" title="#{bundle.EditOrdenventaTitle_descripcion}" required="true" requiredMessage="#{bundle.EditOrdenventaRequiredMessage_descripcion}"/>
-                        <p:outputLabel value="#{bundle.EditOrdenventaLabel_clienteid}" for="clienteid" />
+                        <p:outputLabel value="Id de cliente:" for="clienteid" />
                         <p:selectOneMenu id="clienteid" value="#{ordenventaController.selected.clienteid}" required="true" requiredMessage="#{bundle.EditOrdenventaRequiredMessage_clienteid}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
                                            var="clienteidItem"
                                            itemValue="#{clienteidItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditOrdenventaLabel_facturaid}" for="facturaid" />
+                        <p:outputLabel value="Id de factura:" for="facturaid" />
                         <p:selectOneMenu id="facturaid" value="#{ordenventaController.selected.facturaid}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{facturaventaController.itemsAvailableSelectOne}"
@@ -41,8 +41,10 @@
                                            itemValue="#{facturaidItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{ordenventaController.update}" value="#{bundle.Save}" update="display,:OrdenventaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OrdenventaEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="OrdenventaEditDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-sm btn-success" actionListener="#{ordenventaController.update}" value="Guardar" update="display,:OrdenventaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OrdenventaEditDialog');"/>
+                    <p:commandButton class="btn btn-sm btn-success" value="Cancelar" onclick="OrdenventaEditDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

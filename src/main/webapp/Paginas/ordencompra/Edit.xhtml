@@ -8,13 +8,11 @@
 
     <ui:composition>
 
-        <p:dialog id="OrdencompraEditDlg" widgetVar="OrdencompraEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditOrdencompraTitle}">
+        <p:dialog id="OrdencompraEditDlg" widgetVar="OrdencompraEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar orden de compra">
             <h:form id="OrdencompraEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{ordencompraController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditOrdencompraLabel_ordencompraid}" for="ordencompraid" />
-                        <p:inputText id="ordencompraid" value="#{ordencompraController.selected.ordencompraid}" title="#{bundle.EditOrdencompraTitle_ordencompraid}" required="true" requiredMessage="#{bundle.EditOrdencompraRequiredMessage_ordencompraid}"/>
-                        <p:outputLabel value="#{bundle.EditOrdencompraLabel_fechaCompra}" for="fechaCompra" />
+                        <p:outputLabel value="Fecha de compra: " for="fechaCompra" />
                         <p:calendar id="fechaCompra" pattern="MM/dd/yyyy" value="#{ordencompraController.selected.fechaCompra}" title="#{bundle.EditOrdencompraTitle_fechaCompra}" required="true" requiredMessage="#{bundle.EditOrdencompraRequiredMessage_fechaCompra}" showOn="button"/>
                         <p:outputLabel value="#{bundle.EditOrdencompraLabel_status}" for="status" />
                         <p:inputText id="status" value="#{ordencompraController.selected.status}" title="#{bundle.EditOrdencompraTitle_status}" required="true" requiredMessage="#{bundle.EditOrdencompraRequiredMessage_status}"/>
@@ -26,14 +24,14 @@
                         <p:inputText id="total" value="#{ordencompraController.selected.total}" title="#{bundle.EditOrdencompraTitle_total}" required="true" requiredMessage="#{bundle.EditOrdencompraRequiredMessage_total}"/>
                         <p:outputLabel value="#{bundle.EditOrdencompraLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{ordencompraController.selected.descripcion}" title="#{bundle.EditOrdencompraTitle_descripcion}" required="true" requiredMessage="#{bundle.EditOrdencompraRequiredMessage_descripcion}"/>
-                        <p:outputLabel value="#{bundle.EditOrdencompraLabel_facturaid}" for="facturaid" />
+                        <p:outputLabel value="Id de factura: " for="facturaid" />
                         <p:selectOneMenu id="facturaid" value="#{ordencompraController.selected.facturaid}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{facturacompraController.itemsAvailableSelectOne}"
                                            var="facturaidItem"
                                            itemValue="#{facturaidItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditOrdencompraLabel_proveedorid}" for="proveedorid" />
+                        <p:outputLabel value="Id de proveedor: " for="proveedorid" />
                         <p:selectOneMenu id="proveedorid" value="#{ordencompraController.selected.proveedorid}" required="true" requiredMessage="#{bundle.EditOrdencompraRequiredMessage_proveedorid}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"
@@ -41,8 +39,10 @@
                                            itemValue="#{proveedoridItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{ordencompraController.update}" value="#{bundle.Save}" update="display,:OrdencompraListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OrdencompraEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="OrdencompraEditDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-sm btn-success" actionListener="#{ordencompraController.update}" value="Guardar" update="display,:OrdencompraListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OrdencompraEditDialog');"/>
+                    <p:commandButton class="btn btn-sm btn-danger" value="Cancelar" onclick="OrdencompraEditDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

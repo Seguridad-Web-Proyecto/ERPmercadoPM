@@ -12,9 +12,9 @@
             <h:form id="PagoventaViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{pagoventaController.selected != null}">
-                        <h:outputText value="#{bundle.ViewPagoventaLabel_pagoventaid}"/>
+                        <h:outputText value="Id de pago: "/>
                         <h:outputText value="#{pagoventaController.selected.pagoventaid}" title="#{bundle.ViewPagoventaTitle_pagoventaid}"/>
-                        <h:outputText value="#{bundle.ViewPagoventaLabel_fechaPago}"/>
+                        <h:outputText value="Fecha de pago: "/>
                         <h:outputText value="#{pagoventaController.selected.fechaPago}" title="#{bundle.ViewPagoventaTitle_fechaPago}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
@@ -22,10 +22,12 @@
                         <h:outputText value="#{pagoventaController.selected.monto}" title="#{bundle.ViewPagoventaTitle_monto}"/>
                         <h:outputText value="#{bundle.ViewPagoventaLabel_estado}"/>
                         <h:outputText value="#{pagoventaController.selected.estado}" title="#{bundle.ViewPagoventaTitle_estado}"/>
-                        <h:outputText value="#{bundle.ViewPagoventaLabel_tarjetacreditoid}"/>
+                        <h:outputText value="Id de tarjeta: "/>
                         <h:outputText value="#{pagoventaController.selected.tarjetacreditoid}" title="#{bundle.ViewPagoventaTitle_tarjetacreditoid}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PagoventaViewDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-sm btn-info" value="Aceptar" onclick="PagoventaViewDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

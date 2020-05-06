@@ -8,13 +8,11 @@
 
     <ui:composition>
 
-        <p:dialog id="OrdenventaCreateDlg" widgetVar="OrdenventaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateOrdenventaTitle}">
+        <p:dialog id="OrdenventaCreateDlg" widgetVar="OrdenventaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Registro de orden de venta">
             <h:form id="OrdenventaCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{ordenventaController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateOrdenventaLabel_ordenventaid}" for="ordenventaid" />
-                        <p:inputText id="ordenventaid" value="#{ordenventaController.selected.ordenventaid}" title="#{bundle.CreateOrdenventaTitle_ordenventaid}" required="true" requiredMessage="#{bundle.CreateOrdenventaRequiredMessage_ordenventaid}"/>
-                        <p:outputLabel value="#{bundle.CreateOrdenventaLabel_fechaVenta}" for="fechaVenta" />
+                        <p:outputLabel value="Fecha de venta: " for="fechaVenta" />
                         <p:calendar id="fechaVenta" pattern="MM/dd/yyyy" value="#{ordenventaController.selected.fechaVenta}" title="#{bundle.EditOrdenventaTitle_fechaVenta}" required="true" requiredMessage="#{bundle.EditOrdenventaRequiredMessage_fechaVenta}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateOrdenventaLabel_status}" for="status" />
                         <p:inputText id="status" value="#{ordenventaController.selected.status}" title="#{bundle.CreateOrdenventaTitle_status}" required="true" requiredMessage="#{bundle.CreateOrdenventaRequiredMessage_status}"/>
@@ -26,21 +24,23 @@
                         <p:inputText id="total" value="#{ordenventaController.selected.total}" title="#{bundle.CreateOrdenventaTitle_total}" required="true" requiredMessage="#{bundle.CreateOrdenventaRequiredMessage_total}"/>
                         <p:outputLabel value="#{bundle.CreateOrdenventaLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{ordenventaController.selected.descripcion}" title="#{bundle.CreateOrdenventaTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateOrdenventaRequiredMessage_descripcion}"/>
-                        <p:outputLabel value="#{bundle.CreateOrdenventaLabel_clienteid}" for="clienteid" />
+                        <p:outputLabel value="Id de cliente: " for="clienteid" />
                         <p:selectOneMenu id="clienteid" value="#{ordenventaController.selected.clienteid}" required="true" requiredMessage="#{bundle.EditOrdenventaRequiredMessage_clienteid}">
                             <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
                                            var="clienteidItem"
                                            itemValue="#{clienteidItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateOrdenventaLabel_facturaid}" for="facturaid" />
+                        <p:outputLabel value="Id de factura: " for="facturaid" />
                         <p:selectOneMenu id="facturaid" value="#{ordenventaController.selected.facturaid}" >
                             <f:selectItems value="#{facturaventaController.itemsAvailableSelectOne}"
                                            var="facturaidItem"
                                            itemValue="#{facturaidItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{ordenventaController.create}" value="#{bundle.Save}" update="display,:OrdenventaListForm:datalist,:growl" oncomplete="handleSubmit(args,'OrdenventaCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="OrdenventaCreateDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-outline-success" actionListener="#{ordenventaController.create}" value="Guardar" update="display,:OrdenventaListForm:datalist,:growl" oncomplete="handleSubmit(args,'OrdenventaCreateDialog');"/>
+                    <p:commandButton class="btn btn-outline-danger" value="Cancelar" onclick="OrdenventaCreateDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -8,17 +8,15 @@
 
     <ui:composition>
 
-        <p:dialog id="PersonaCreateDlg" widgetVar="PersonaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonaTitle}">
+        <p:dialog id="PersonaCreateDlg" widgetVar="PersonaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Registro de persona">
             <h:form id="PersonaCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{personaController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreatePersonaLabel_personaid}" for="personaid" />
-                        <p:inputText id="personaid" value="#{personaController.selected.personaid}" title="#{bundle.CreatePersonaTitle_personaid}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_personaid}"/>
                         <p:outputLabel value="#{bundle.CreatePersonaLabel_nombres}" for="nombres" />
                         <p:inputText id="nombres" value="#{personaController.selected.nombres}" title="#{bundle.CreatePersonaTitle_nombres}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_nombres}"/>
                         <p:outputLabel value="#{bundle.CreatePersonaLabel_apellidos}" for="apellidos" />
                         <p:inputText id="apellidos" value="#{personaController.selected.apellidos}" title="#{bundle.CreatePersonaTitle_apellidos}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_apellidos}"/>
-                        <p:outputLabel value="#{bundle.CreatePersonaLabel_fechaNacimiento}" for="fechaNacimiento" />
+                        <p:outputLabel value="Fecha de nacimiento: " for="fechaNacimiento" />
                         <p:calendar id="fechaNacimiento" pattern="MM/dd/yyyy" value="#{personaController.selected.fechaNacimiento}" title="#{bundle.EditPersonaTitle_fechaNacimiento}" required="true" requiredMessage="#{bundle.EditPersonaRequiredMessage_fechaNacimiento}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreatePersonaLabel_telefono}" for="telefono" />
                         <p:inputText id="telefono" value="#{personaController.selected.telefono}" title="#{bundle.CreatePersonaTitle_telefono}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_telefono}"/>
@@ -37,8 +35,10 @@
                                            itemValue="#{emailItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{personaController.create}" value="#{bundle.Save}" update="display,:PersonaListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonaCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PersonaCreateDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-outline-success" actionListener="#{personaController.create}" value="Guardar" update="display,:PersonaListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonaCreateDialog');"/>
+                    <p:commandButton class="btn btn-outline-danger" value="Cancelar" onclick="PersonaCreateDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

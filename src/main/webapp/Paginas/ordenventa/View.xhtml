@@ -8,13 +8,13 @@
 
     <ui:composition>
 
-        <p:dialog id="OrdenventaViewDlg" widgetVar="OrdenventaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewOrdenventaTitle}">
+        <p:dialog id="OrdenventaViewDlg" widgetVar="OrdenventaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Información">
             <h:form id="OrdenventaViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{ordenventaController.selected != null}">
-                        <h:outputText value="#{bundle.ViewOrdenventaLabel_ordenventaid}"/>
+                        <h:outputText value="Id orden de venta:"/>
                         <h:outputText value="#{ordenventaController.selected.ordenventaid}" title="#{bundle.ViewOrdenventaTitle_ordenventaid}"/>
-                        <h:outputText value="#{bundle.ViewOrdenventaLabel_fechaVenta}"/>
+                        <h:outputText value="Fecha de venta:"/>
                         <h:outputText value="#{ordenventaController.selected.fechaVenta}" title="#{bundle.ViewOrdenventaTitle_fechaVenta}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
@@ -28,12 +28,14 @@
                         <h:outputText value="#{ordenventaController.selected.total}" title="#{bundle.ViewOrdenventaTitle_total}"/>
                         <h:outputText value="#{bundle.ViewOrdenventaLabel_descripcion}"/>
                         <h:outputText value="#{ordenventaController.selected.descripcion}" title="#{bundle.ViewOrdenventaTitle_descripcion}"/>
-                        <h:outputText value="#{bundle.ViewOrdenventaLabel_clienteid}"/>
+                        <h:outputText value="Id de cliente: "/>
                         <h:outputText value="#{ordenventaController.selected.clienteid}" title="#{bundle.ViewOrdenventaTitle_clienteid}"/>
-                        <h:outputText value="#{bundle.ViewOrdenventaLabel_facturaid}"/>
+                        <h:outputText value="Id de factura:"/>
                         <h:outputText value="#{ordenventaController.selected.facturaid}" title="#{bundle.ViewOrdenventaTitle_facturaid}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="OrdenventaViewDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-sm btn-info" value="Aceptar" onclick="OrdenventaViewDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

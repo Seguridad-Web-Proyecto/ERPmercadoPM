@@ -23,7 +23,9 @@
                         <h:outputText value="#{bundle.ViewCompradetalleLabel_producto}"/>
                         <h:outputText value="#{compradetalleController.selected.producto}" title="#{bundle.ViewCompradetalleTitle_producto}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="CompradetalleViewDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-sm btn-info" value="Aceptar" onclick="CompradetalleViewDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

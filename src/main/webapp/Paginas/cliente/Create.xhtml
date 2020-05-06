@@ -8,33 +8,33 @@
 
     <ui:composition>
 
-        <p:dialog id="ClienteCreateDlg" widgetVar="ClienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClienteTitle}">
+        <p:dialog id="ClienteCreateDlg" widgetVar="ClienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Registro de clientes">
             <h:form id="ClienteCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateClienteLabel_clienteid}" for="clienteid" />
-                        <p:inputText id="clienteid" value="#{clienteController.selected.clienteid}" title="#{bundle.CreateClienteTitle_clienteid}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_clienteid}"/>
                         <p:outputLabel value="#{bundle.CreateClienteLabel_empresa}" for="empresa" />
-                        <p:inputText id="empresa" value="#{clienteController.selected.empresa}" title="#{bundle.CreateClienteTitle_empresa}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_empresa}"/>
-                        <p:outputLabel value="#{bundle.CreateClienteLabel_nombreContacto}" for="nombreContacto" />
-                        <p:inputText id="nombreContacto" value="#{clienteController.selected.nombreContacto}" title="#{bundle.CreateClienteTitle_nombreContacto}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombreContacto}"/>
+                        <p:inputText class="form-control" id="empresa" value="#{clienteController.selected.empresa}" title="#{bundle.CreateClienteTitle_empresa}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_empresa}"/>
+                        <p:outputLabel value="Nombre del contacto: " for="nombreContacto" />
+                        <p:inputText class="form-control" id="nombreContacto" value="#{clienteController.selected.nombreContacto}" title="#{bundle.CreateClienteTitle_nombreContacto}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombreContacto}"/>
                         <p:outputLabel value="#{bundle.CreateClienteLabel_area}" for="area" />
-                        <p:inputText id="area" value="#{clienteController.selected.area}" title="#{bundle.CreateClienteTitle_area}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_area}"/>
+                        <p:inputText class="form-control" id="area" value="#{clienteController.selected.area}" title="#{bundle.CreateClienteTitle_area}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_area}"/>
                         <p:outputLabel value="#{bundle.CreateClienteLabel_telefono}" for="telefono" />
-                        <p:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.CreateClienteTitle_telefono}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}"/>
+                        <p:inputText class="form-control" id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.CreateClienteTitle_telefono}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}"/>
                         <p:outputLabel value="#{bundle.CreateClienteLabel_rfc}" for="rfc" />
-                        <p:inputText id="rfc" value="#{clienteController.selected.rfc}" title="#{bundle.CreateClienteTitle_rfc}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_rfc}"/>
+                        <p:inputText class="form-control" id="rfc" value="#{clienteController.selected.rfc}" title="#{bundle.CreateClienteTitle_rfc}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_rfc}"/>
                         <p:outputLabel value="#{bundle.CreateClienteLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{clienteController.selected.email}" title="#{bundle.CreateClienteTitle_email}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_email}"/>
+                        <p:inputText class="form-control" id="email" value="#{clienteController.selected.email}" title="#{bundle.CreateClienteTitle_email}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_email}"/>
                         <p:outputLabel value="#{bundle.CreateClienteLabel_activo}" for="activo" />
-                        <p:selectBooleanCheckbox id="activo" value="#{clienteController.selected.activo}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_activo}"/>
-                        <p:outputLabel value="#{bundle.CreateClienteLabel_paginaWeb}" for="paginaWeb" />
-                        <p:inputText id="paginaWeb" value="#{clienteController.selected.paginaWeb}" title="#{bundle.CreateClienteTitle_paginaWeb}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_paginaWeb}"/>
-                        <p:outputLabel value="#{bundle.CreateClienteLabel_domicilioFiscal}" for="domicilioFiscal" />
-                        <p:inputText id="domicilioFiscal" value="#{clienteController.selected.domicilioFiscal}" title="#{bundle.CreateClienteTitle_domicilioFiscal}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_domicilioFiscal}"/>
+                        <p:selectBooleanCheckbox class="form-check" id="activo" value="#{clienteController.selected.activo}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_activo}"/>
+                        <p:outputLabel value="Pagina web: " for="paginaWeb" />
+                        <p:inputText class="form-control" id="paginaWeb" value="#{clienteController.selected.paginaWeb}" title="#{bundle.CreateClienteTitle_paginaWeb}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_paginaWeb}"/>
+                        <p:outputLabel value="Domicilio Fiscal: " for="domicilioFiscal" />
+                        <p:inputText class="form-control" id="domicilioFiscal" value="#{clienteController.selected.domicilioFiscal}" title="#{bundle.CreateClienteTitle_domicilioFiscal}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_domicilioFiscal}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{clienteController.create}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ClienteCreateDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-outline-success" actionListener="#{clienteController.create}" value="Guardar" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog');"/>
+                    <p:commandButton class="btn btn-outline-danger" value="Cancelar" onclick="ClienteCreateDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

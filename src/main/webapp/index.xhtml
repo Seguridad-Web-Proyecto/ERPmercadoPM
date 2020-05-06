@@ -5,9 +5,12 @@
     <h:head>
         <title>Facelet Title</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
+        <h:outputScript name="bootstrap/js/bootstrap.js" />
+        <h:outputScript name="bootstrap/js/bootstrap.min.js"/>
+        <h:outputStylesheet name="bootstrap/css/bootstrap.css"/>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <button class="btn-danger">Hola </button>
         <br />
         <h:link outcome="/Paginas/cargo/List" value="Show All Cargo Items"/>
         <br />
@@ -52,8 +55,7 @@
         <h:link outcome="/Paginas/usuariosw/List" value="Show All Usuariosw Items"/>
         <br />
         <h:link outcome="/Paginas/ventadetalle/List" value="Show All Ventadetalle Items"/>
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+     
     </h:body>
 
 

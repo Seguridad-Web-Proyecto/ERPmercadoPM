@@ -12,22 +12,24 @@
             <h:form id="FacturacompraViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{facturacompraController.selected != null}">
-                        <h:outputText value="#{bundle.ViewFacturacompraLabel_facturacompraid}"/>
+                        <h:outputText value="Id de Factura de Compra: "/>
                         <h:outputText value="#{facturacompraController.selected.facturacompraid}" title="#{bundle.ViewFacturacompraTitle_facturacompraid}"/>
-                        <h:outputText value="#{bundle.ViewFacturacompraLabel_fechaEmision}"/>
+                        <h:outputText value="Fecha de emisión"/>
                         <h:outputText value="#{facturacompraController.selected.fechaEmision}" title="#{bundle.ViewFacturacompraTitle_fechaEmision}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewFacturacompraLabel_fechaVencimientoPago}"/>
+                        <h:outputText value="Fecha de vencimiento de pago: "/>
                         <h:outputText value="#{facturacompraController.selected.fechaVencimientoPago}" title="#{bundle.ViewFacturacompraTitle_fechaVencimientoPago}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewFacturacompraLabel_descripcion}"/>
+                        <h:outputText value="Descripción: "/>
                         <h:outputText value="#{facturacompraController.selected.descripcion}" title="#{bundle.ViewFacturacompraTitle_descripcion}"/>
-                        <h:outputText value="#{bundle.ViewFacturacompraLabel_pagoid}"/>
+                        <h:outputText value="Id de pago: "/>
                         <h:outputText value="#{facturacompraController.selected.pagoid}" title="#{bundle.ViewFacturacompraTitle_pagoid}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="FacturacompraViewDialog.hide()"/>
+                    <center>
+                        <p:commandButton class="btn btn-sm btn-info" value="Aceptar" onclick="FacturacompraViewDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

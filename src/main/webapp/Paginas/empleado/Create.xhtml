@@ -8,25 +8,25 @@
 
     <ui:composition>
 
-        <p:dialog id="EmpleadoCreateDlg" widgetVar="EmpleadoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEmpleadoTitle}">
+        <p:dialog id="EmpleadoCreateDlg" widgetVar="EmpleadoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Registro de empleados">
             <h:form id="EmpleadoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{empleadoController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateEmpleadoLabel_empleadoid}" for="empleadoid" />
-                        <p:inputText id="empleadoid" value="#{empleadoController.selected.empleadoid}" title="#{bundle.CreateEmpleadoTitle_empleadoid}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_empleadoid}"/>
-                        <p:outputLabel value="#{bundle.CreateEmpleadoLabel_fechaVinculo}" for="fechaVinculo" />
-                        <p:calendar id="fechaVinculo" pattern="MM/dd/yyyy" value="#{empleadoController.selected.fechaVinculo}" title="#{bundle.EditEmpleadoTitle_fechaVinculo}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_fechaVinculo}" showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateEmpleadoLabel_fechaRetiro}" for="fechaRetiro" />
-                        <p:calendar id="fechaRetiro" pattern="MM/dd/yyyy" value="#{empleadoController.selected.fechaRetiro}" title="#{bundle.EditEmpleadoTitle_fechaRetiro}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateEmpleadoLabel_persona}" for="persona" />
-                        <p:selectOneMenu id="persona" value="#{empleadoController.selected.persona}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_persona}">
+                        <p:outputLabel value="Fecha de vinculo: " for="fechaVinculo" />
+                        <p:calendar class="form-text" id="fechaVinculo" pattern="MM/dd/yyyy" value="#{empleadoController.selected.fechaVinculo}" title="#{bundle.EditEmpleadoTitle_fechaVinculo}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_fechaVinculo}" showOn="button"/>
+                        <p:outputLabel value="Fecha de retiro: " for="fechaRetiro" />
+                        <p:calendar class="form-text" id="fechaRetiro" pattern="MM/dd/yyyy" value="#{empleadoController.selected.fechaRetiro}" title="#{bundle.EditEmpleadoTitle_fechaRetiro}"  showOn="button"/>
+                        <p:outputLabel value="Id persona" for="persona" />
+                        <p:selectOneMenu class="form-text" id="persona" value="#{empleadoController.selected.persona}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_persona}">
                             <f:selectItems value="#{personaController.itemsAvailableSelectOne}"
                                            var="personaItem"
                                            itemValue="#{personaItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{empleadoController.create}" value="#{bundle.Save}" update="display,:EmpleadoListForm:datalist,:growl" oncomplete="handleSubmit(args,'EmpleadoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="EmpleadoCreateDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-outline-success" actionListener="#{empleadoController.create}" value="Guardar" update="display,:EmpleadoListForm:datalist,:growl" oncomplete="handleSubmit(args,'EmpleadoCreateDialog');"/>
+                    <p:commandButton class="btn btn-outline-danger" value="Cancel" onclick="EmpleadoCreateDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

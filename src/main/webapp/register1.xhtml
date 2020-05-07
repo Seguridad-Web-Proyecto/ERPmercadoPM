@@ -12,24 +12,27 @@
         </ui:define>
 
         <ui:define name="body">
-
-            <h:form>
-                <p:panel header="Registrarse">
-                    <h:panelGroup>
-                        <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
-                            <p:outputLabel value="#{bundle.CreateUsuarioLabel_email}" for="email" />
-                            <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.CreateUsuarioTitle_email}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_email}"/>
-                            <p:outputLabel value="#{bundle.CreateUsuarioLabel_contrasenia}" for="contrasenia" />
-                            <p:inputText id="contrasenia" value="#{usuarioController.selected.contrasenia}" title="#{bundle.CreateUsuarioTitle_contrasenia}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasenia}"/>
-                            <p:outputLabel value="Confirmar contraseña" for="Confircontrasenia" />
-                            <p:inputText id="Confircontrasenia" value="#{usuarioController.pass2}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasenia}"/>
-                        </p:panelGrid>
-                        <p:commandButton action="#{usuarioController.registrar}" value="#{bundle.Save}" oncomplete="login.xhtml"/>
-                        <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()"/>
-                    </h:panelGroup>
-                    </p:panel>
-            </h:form>
-            
+            <div class="wrapper fadeInDown">
+                <div id="formContent">
+                    <h:form>
+                        <p:messages id="messages" showDetail="false" closable="true"/>
+                        <p:panel header="Registrarse">
+                            <h:panelGroup>
+                                <p:panelGrid id="grid" columns="2" rendered="#{usuarioController.selected != null}">
+                                    <p:outputLabel value="#{bundle.CreateUsuarioLabel_email}" for="email" />
+                                    <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.CreateUsuarioTitle_email}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_email}"/>
+                                    <h:outputLabel for="pwd1" value="Contraseña: *" />
+                                    <p:password id="pwd1" value="#{usuarioController.selected.contrasenia}" feedback="false" match="pwd2" label="Password 1" required="true"/>
+                                    <h:outputLabel for="pwd2" value="Confirme contraseña: *" />
+                                    <p:password id="pwd2" value="#{usuarioController.pass2}" feedback="false" label="Password 2" required="true"/>
+                                </p:panelGrid>
+                                <p:commandButton action="#{usuarioController.registrar}" value="Rgistrarse" update="grid"/>
+                                
+                            </h:panelGroup>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </div>
         </ui:define>
     </ui:composition>   
 </html>

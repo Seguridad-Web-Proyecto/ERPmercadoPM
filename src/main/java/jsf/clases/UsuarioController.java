@@ -6,6 +6,7 @@ import jsf.clases.util.JsfUtil.PersistAction;
 import beans.sessions.UsuarioFacade;
 import entidades.Encoding;
 import entidades.Rol;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -71,37 +72,38 @@ public class UsuarioController implements Serializable
         return ejbFacade;
     }
 
-    public String registrar()
+    public String registrar() throws IOException
     {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         selected.setActivo(true);
         selected.setFechaCreacion(new Date());
+        
         if (pass2.equals(selected.getContrasenia()))
         {
             selected.setContrasenia(Encoding.convertPass(selected.getContrasenia()));
             selected.setRol(new Rol(selected.getEmail(), "USERS"));
-
-            if (getUsuario(selected.getEmail()).getEmail().equals(selected.getEmail()))
+            
+            if (getUsuario(selected.getEmail())!=null)
             {
-                JsfUtil.addSuccessMessage("El usuario ya existe");
-
-                return "login.xhtml";
+                JsfUtil.addErrorMessage("El usuario ya existe");
+                return null;
             }
 
             create();
-            if (JsfUtil.isValidationFailed())
+            if (!JsfUtil.isValidationFailed())
             {
-                System.out.println("Se registró el usuario: " + selected.toString());
+                JsfUtil.addSuccessMessage("Ok");
                 return "regdone.xhtml";
+                
             } else
             {
-                return "register1.xhtml";
+                JsfUtil.addErrorMessage("Ocurrió un error");
+              return null;
             }
         } else
         {
-            JsfUtil.addSuccessMessage("Las contraseñas no conciden");
-
-            return "#";
+            JsfUtil.addErrorMessage("Las contraseñas no coinciden");
+         return null;  
         }
     }
 

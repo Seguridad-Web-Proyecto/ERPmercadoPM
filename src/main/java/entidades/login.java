@@ -5,7 +5,6 @@
  */
 package entidades;
 
-
 import dao.UsuarioJpaController;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -132,16 +131,13 @@ public class login implements Serializable
         return "login.xhtml";
     }
 
-   
-    
-    public String login3() {
-    FacesContext context = FacesContext.getCurrentInstance();
+    public String login3()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try
         {
-
             request.login(usuario, contrasenia);
-            System.out.println("paso 1");
         } catch (ServletException ex)
         {
             System.out.println(ex.getMessage());
@@ -149,7 +145,7 @@ public class login implements Serializable
             {
                 errorMessage = "login.failed";
             }
-            return "login2.xhtml";
+            return "login.xhtml";
         }
         Principal user = request.getUserPrincipal();
 //    setPersons(new UsersJpaController(utx,emf).findUsers(usuario));
@@ -162,23 +158,26 @@ public class login implements Serializable
         {
             return "/secured/user/menu.xhtml";
         }
-  }
-    
-    public String logout() {
-    FacesContext context = FacesContext.getCurrentInstance();
-    ExternalContext externalContext = context.getExternalContext();
-    HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-    try {
-      externalContext.invalidateSession();      
-      request.logout();
-    } catch (ServletException ex) {
-      Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-      return "error";
     }
 
-    errorMessage = "";
-    errorsCounter = 0;
-    return "/login2.xhtml?faces-redirect=true";
-  }
+    public String logout()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        try
+        {
+            externalContext.invalidateSession();
+            request.logout();
+        } catch (ServletException ex)
+        {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            return "error";
+        }
+
+        errorMessage = "";
+        errorsCounter = 0;
+        return "/login.xhtml?faces-redirect=true";
+    }
 
 }

@@ -13,13 +13,13 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{facturacompraController.selected != null}">
                         <p:outputLabel value="Fecha de emisión: " for="fechaEmision" />
-                        <p:calendar id="fechaEmision" pattern="MM/dd/yyyy" value="#{facturacompraController.selected.fechaEmision}" title="#{bundle.EditFacturacompraTitle_fechaEmision}" required="true" requiredMessage="#{bundle.EditFacturacompraRequiredMessage_fechaEmision}" showOn="button"/>
+                        <p:calendar class="form-text" id="fechaEmision" pattern="MM/dd/yyyy" value="#{facturacompraController.selected.fechaEmision}" title="#{bundle.EditFacturacompraTitle_fechaEmision}" required="true" requiredMessage="#{bundle.EditFacturacompraRequiredMessage_fechaEmision}" showOn="button"/>
                         <p:outputLabel value="Fecha de vencimiento de pago: " for="fechaVencimientoPago" />
-                        <p:calendar id="fechaVencimientoPago" pattern="MM/dd/yyyy" value="#{facturacompraController.selected.fechaVencimientoPago}" title="#{bundle.EditFacturacompraTitle_fechaVencimientoPago}" required="true" requiredMessage="#{bundle.EditFacturacompraRequiredMessage_fechaVencimientoPago}" showOn="button"/>
+                        <p:calendar class="form-text"  id="fechaVencimientoPago" pattern="MM/dd/yyyy" value="#{facturacompraController.selected.fechaVencimientoPago}" title="#{bundle.EditFacturacompraTitle_fechaVencimientoPago}" required="true" requiredMessage="#{bundle.EditFacturacompraRequiredMessage_fechaVencimientoPago}" showOn="button"/>
                         <p:outputLabel value="Descripción: " for="descripcion" />
-                        <p:inputText id="descripcion" value="#{facturacompraController.selected.descripcion}" title="#{bundle.EditFacturacompraTitle_descripcion}" required="true" requiredMessage="#{bundle.EditFacturacompraRequiredMessage_descripcion}"/>
+                        <p:inputText class="form-text" id="descripcion" value="#{facturacompraController.selected.descripcion}" title="#{bundle.EditFacturacompraTitle_descripcion}" required="true" requiredMessage="#{bundle.EditFacturacompraRequiredMessage_descripcion}"/>
                         <p:outputLabel value="Id de pago: " for="pagoid" />
-                        <p:selectOneMenu id="pagoid" value="#{facturacompraController.selected.pagoid}" >
+                        <p:selectOneMenu class="form-text" id="pagoid" value="#{facturacompraController.selected.pagoid}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{pagocompraController.itemsAvailableSelectOne}"
                                            var="pagoidItem"

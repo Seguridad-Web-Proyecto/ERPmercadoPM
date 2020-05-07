@@ -8,24 +8,26 @@
 
     <ui:composition>
 
-        <p:dialog id="PagocompraViewDlg" widgetVar="PagocompraViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPagocompraTitle}">
+        <p:dialog id="PagocompraViewDlg" widgetVar="PagocompraViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Información">
             <h:form id="PagocompraViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{pagocompraController.selected != null}">
-                        <h:outputText value="#{bundle.ViewPagocompraLabel_pagocompraid}"/>
+                        <h:outputText value="Id de pago: "/>
                         <h:outputText value="#{pagocompraController.selected.pagocompraid}" title="#{bundle.ViewPagocompraTitle_pagocompraid}"/>
-                        <h:outputText value="#{bundle.ViewPagocompraLabel_fechaPago}"/>
+                        <h:outputText value="Fecha de pago: "/>
                         <h:outputText value="#{pagocompraController.selected.fechaPago}" title="#{bundle.ViewPagocompraTitle_fechaPago}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewPagocompraLabel_monto}"/>
+                        <h:outputText value="Monto:"/>
                         <h:outputText value="#{pagocompraController.selected.monto}" title="#{bundle.ViewPagocompraTitle_monto}"/>
                         <h:outputText value="#{bundle.ViewPagocompraLabel_estado}"/>
                         <h:outputText value="#{pagocompraController.selected.estado}" title="#{bundle.ViewPagocompraTitle_estado}"/>
-                        <h:outputText value="#{bundle.ViewPagocompraLabel_tarjetacreditoid}"/>
+                        <h:outputText value="Id de tarjeta: "/>
                         <h:outputText value="#{pagocompraController.selected.tarjetacreditoid}" title="#{bundle.ViewPagocompraTitle_tarjetacreditoid}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PagocompraViewDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-sm btn-info" value="Aceptar" onclick="PagocompraViewDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -8,27 +8,27 @@
 
     <ui:composition>
 
-        <p:dialog id="PagoventaCreateDlg" widgetVar="PagoventaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePagoventaTitle}">
+        <p:dialog id="PagoventaCreateDlg" widgetVar="PagoventaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Registrar Pago">
             <h:form id="PagoventaCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{pagoventaController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreatePagoventaLabel_pagoventaid}" for="pagoventaid" />
-                        <p:inputText id="pagoventaid" value="#{pagoventaController.selected.pagoventaid}" title="#{bundle.CreatePagoventaTitle_pagoventaid}" required="true" requiredMessage="#{bundle.CreatePagoventaRequiredMessage_pagoventaid}"/>
-                        <p:outputLabel value="#{bundle.CreatePagoventaLabel_fechaPago}" for="fechaPago" />
+                        <p:outputLabel value="Fecha de pago: " for="fechaPago" />
                         <p:calendar id="fechaPago" pattern="MM/dd/yyyy" value="#{pagoventaController.selected.fechaPago}" title="#{bundle.EditPagoventaTitle_fechaPago}" required="true" requiredMessage="#{bundle.EditPagoventaRequiredMessage_fechaPago}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreatePagoventaLabel_monto}" for="monto" />
                         <p:inputText id="monto" value="#{pagoventaController.selected.monto}" title="#{bundle.CreatePagoventaTitle_monto}" required="true" requiredMessage="#{bundle.CreatePagoventaRequiredMessage_monto}"/>
                         <p:outputLabel value="#{bundle.CreatePagoventaLabel_estado}" for="estado" />
                         <p:inputText id="estado" value="#{pagoventaController.selected.estado}" title="#{bundle.CreatePagoventaTitle_estado}" required="true" requiredMessage="#{bundle.CreatePagoventaRequiredMessage_estado}"/>
-                        <p:outputLabel value="#{bundle.CreatePagoventaLabel_tarjetacreditoid}" for="tarjetacreditoid" />
+                        <p:outputLabel value="Id de tarjeta:" for="tarjetacreditoid" />
                         <p:selectOneMenu id="tarjetacreditoid" value="#{pagoventaController.selected.tarjetacreditoid}" required="true" requiredMessage="#{bundle.EditPagoventaRequiredMessage_tarjetacreditoid}">
                             <f:selectItems value="#{tarjetacreditoventaController.itemsAvailableSelectOne}"
                                            var="tarjetacreditoidItem"
                                            itemValue="#{tarjetacreditoidItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{pagoventaController.create}" value="#{bundle.Save}" update="display,:PagoventaListForm:datalist,:growl" oncomplete="handleSubmit(args,'PagoventaCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PagoventaCreateDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-outline-success" actionListener="#{pagoventaController.create}" value="Guardar" update="display,:PagoventaListForm:datalist,:growl" oncomplete="handleSubmit(args,'PagoventaCreateDialog');"/>
+                    <p:commandButton class="btn btn-outline-danger" value="Cancelar" onclick="PagoventaCreateDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

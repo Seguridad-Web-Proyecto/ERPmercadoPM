@@ -10,12 +10,21 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListProveedorTitle}"></h:outputText>
+            <h:outputText value="Proveedores"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="ProveedorListForm">
-                <p:panel header="#{bundle.ListProveedorTitle}">
+                <br></br>
+                <br></br>
+                <center>
+                    <h1 style="background-color: #D4E3FF">Modulo de Proveedores</h1>
+                    <br></br>
+                    <br></br>
+                </center>
+                <p:panel style="background-color: #D4E3FF">
+                    <br></br>
+                    <br></br>
                     <p:dataTable id="datalist" value="#{proveedorController.items}" var="item"
                                  selectionMode="single" selection="#{proveedorController.selected}"
                                  paginator="true"
@@ -23,13 +32,14 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
-
+                        <br></br>
+                        <br></br>
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProveedorTitle_proveedorid}"/>
+                                <h:outputText value="Id proveedor"/>
                             </f:facet>
                             <h:outputText value="#{item.proveedorid}"/>
                         </p:column>
@@ -41,15 +51,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProveedorTitle_nombreContacto}"/>
+                                <h:outputText value="Nomre de contacto"/>
                             </f:facet>
                             <h:outputText value="#{item.nombreContacto}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProveedorTitle_area}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.area}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -59,41 +63,18 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProveedorTitle_rfc}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.rfc}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProveedorTitle_email}"/>
                             </f:facet>
                             <h:outputText value="#{item.email}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProveedorTitle_activo}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.activo}" disabled="true"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProveedorTitle_paginaWeb}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.paginaWeb}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProveedorTitle_domicilioFiscal}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.domicilioFiscal}"/>
-                        </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{proveedorController.prepareCreate}" update=":ProveedorCreateForm" oncomplete="PF('ProveedorCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProveedorViewForm" oncomplete="PF('ProveedorViewDialog').show()" disabled="#{empty proveedorController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProveedorEditForm" oncomplete="PF('ProveedorEditDialog').show()" disabled="#{empty proveedorController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{proveedorController.destroy}" update=":growl,datalist" disabled="#{empty proveedorController.selected}"/>
+                            <p:commandButton class="btn btn-success btn-sm" id="createButton" icon="ui-icon-plus"   value="Nuevo" actionListener="#{proveedorController.prepareCreate}" update=":ProveedorCreateForm" oncomplete="PF('ProveedorCreateDialog').show()"/>
+                            <p:commandButton class="btn btn-info btn-sm" id="viewButton"   icon="ui-icon-search" value="Ver" update=":ProveedorViewForm" oncomplete="PF('ProveedorViewDialog').show()" disabled="#{empty proveedorController.selected}"/>
+                            <p:commandButton class="btn btn-warning btn-sm" id="editButton"   icon="ui-icon-pencil" value="Editar" update=":ProveedorEditForm" oncomplete="PF('ProveedorEditDialog').show()" disabled="#{empty proveedorController.selected}"/>
+                            <p:commandButton class="btn btn-danger btn-sm" id="deleteButton" onclick="return ConfirmDelete()" icon="ui-icon-trash"  value="Eliminar" actionListener="#{proveedorController.destroy}" update=":growl,datalist" disabled="#{empty proveedorController.selected}"/>
                         </f:facet>
                     </p:dataTable>
+                    <br></br>
                 </p:panel>
             </h:form>
 

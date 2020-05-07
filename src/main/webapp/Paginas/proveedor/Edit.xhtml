@@ -8,15 +8,13 @@
 
     <ui:composition>
 
-        <p:dialog id="ProveedorEditDlg" widgetVar="ProveedorEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProveedorTitle}">
+        <p:dialog id="ProveedorEditDlg" widgetVar="ProveedorEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar proveedor">
             <h:form id="ProveedorEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{proveedorController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditProveedorLabel_proveedorid}" for="proveedorid" />
-                        <p:inputText id="proveedorid" value="#{proveedorController.selected.proveedorid}" title="#{bundle.EditProveedorTitle_proveedorid}" required="true" requiredMessage="#{bundle.EditProveedorRequiredMessage_proveedorid}"/>
                         <p:outputLabel value="#{bundle.EditProveedorLabel_empresa}" for="empresa" />
                         <p:inputText id="empresa" value="#{proveedorController.selected.empresa}" title="#{bundle.EditProveedorTitle_empresa}" required="true" requiredMessage="#{bundle.EditProveedorRequiredMessage_empresa}"/>
-                        <p:outputLabel value="#{bundle.EditProveedorLabel_nombreContacto}" for="nombreContacto" />
+                        <p:outputLabel value="Nombre de contacto" for="nombreContacto" />
                         <p:inputText id="nombreContacto" value="#{proveedorController.selected.nombreContacto}" title="#{bundle.EditProveedorTitle_nombreContacto}" required="true" requiredMessage="#{bundle.EditProveedorRequiredMessage_nombreContacto}"/>
                         <p:outputLabel value="#{bundle.EditProveedorLabel_area}" for="area" />
                         <p:inputText id="area" value="#{proveedorController.selected.area}" title="#{bundle.EditProveedorTitle_area}" required="true" requiredMessage="#{bundle.EditProveedorRequiredMessage_area}"/>
@@ -28,13 +26,15 @@
                         <p:inputText id="email" value="#{proveedorController.selected.email}" title="#{bundle.EditProveedorTitle_email}" required="true" requiredMessage="#{bundle.EditProveedorRequiredMessage_email}"/>
                         <p:outputLabel value="#{bundle.EditProveedorLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{proveedorController.selected.activo}" required="true" requiredMessage="#{bundle.EditProveedorRequiredMessage_activo}"/>
-                        <p:outputLabel value="#{bundle.EditProveedorLabel_paginaWeb}" for="paginaWeb" />
+                        <p:outputLabel value="Pagina web: " for="paginaWeb" />
                         <p:inputText id="paginaWeb" value="#{proveedorController.selected.paginaWeb}" title="#{bundle.EditProveedorTitle_paginaWeb}" required="true" requiredMessage="#{bundle.EditProveedorRequiredMessage_paginaWeb}"/>
-                        <p:outputLabel value="#{bundle.EditProveedorLabel_domicilioFiscal}" for="domicilioFiscal" />
+                        <p:outputLabel value="Comicilio fiscal" for="domicilioFiscal" />
                         <p:inputText id="domicilioFiscal" value="#{proveedorController.selected.domicilioFiscal}" title="#{bundle.EditProveedorTitle_domicilioFiscal}" required="true" requiredMessage="#{bundle.EditProveedorRequiredMessage_domicilioFiscal}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{proveedorController.update}" value="#{bundle.Save}" update="display,:ProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProveedorEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProveedorEditDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-sm btn-success" actionListener="#{proveedorController.update}" value="Guardar" update="display,:ProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProveedorEditDialog');"/>
+                    <p:commandButton class="btn btn-sm btn-danger" value="Cancelar" onclick="ProveedorEditDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

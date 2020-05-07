@@ -8,24 +8,26 @@
 
     <ui:composition>
 
-        <p:dialog id="TarjetacreditocompraViewDlg" widgetVar="TarjetacreditocompraViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTarjetacreditocompraTitle}">
+        <p:dialog id="TarjetacreditocompraViewDlg" widgetVar="TarjetacreditocompraViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Información">
             <h:form id="TarjetacreditocompraViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tarjetacreditocompraController.selected != null}">
-                        <h:outputText value="#{bundle.ViewTarjetacreditocompraLabel_tarjetacreditocompraid}"/>
+                        <h:outputText value="Id de tarjeta: "/>
                         <h:outputText value="#{tarjetacreditocompraController.selected.tarjetacreditocompraid}" title="#{bundle.ViewTarjetacreditocompraTitle_tarjetacreditocompraid}"/>
                         <h:outputText value="#{bundle.ViewTarjetacreditocompraLabel_numero}"/>
                         <h:outputText value="#{tarjetacreditocompraController.selected.numero}" title="#{bundle.ViewTarjetacreditocompraTitle_numero}"/>
                         <h:outputText value="#{bundle.ViewTarjetacreditocompraLabel_cvc}"/>
                         <h:outputText value="#{tarjetacreditocompraController.selected.cvc}" title="#{bundle.ViewTarjetacreditocompraTitle_cvc}"/>
-                        <h:outputText value="#{bundle.ViewTarjetacreditocompraLabel_nombreTitular}"/>
+                        <h:outputText value="Nombre del titular: "/>
                         <h:outputText value="#{tarjetacreditocompraController.selected.nombreTitular}" title="#{bundle.ViewTarjetacreditocompraTitle_nombreTitular}"/>
-                        <h:outputText value="#{bundle.ViewTarjetacreditocompraLabel_fechaExpiracion}"/>
+                        <h:outputText value="Fecha de expiración:"/>
                         <h:outputText value="#{tarjetacreditocompraController.selected.fechaExpiracion}" title="#{bundle.ViewTarjetacreditocompraTitle_fechaExpiracion}"/>
-                        <h:outputText value="#{bundle.ViewTarjetacreditocompraLabel_lugarFacturacion}"/>
+                        <h:outputText value="Lugar de facturación: "/>
                         <h:outputText value="#{tarjetacreditocompraController.selected.lugarFacturacion}" title="#{bundle.ViewTarjetacreditocompraTitle_lugarFacturacion}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="TarjetacreditocompraViewDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-sm btn-info" value="Aceptar" onclick="TarjetacreditocompraViewDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

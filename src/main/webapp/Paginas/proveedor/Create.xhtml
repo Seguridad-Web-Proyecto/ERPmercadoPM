@@ -8,15 +8,13 @@
 
     <ui:composition>
 
-        <p:dialog id="ProveedorCreateDlg" widgetVar="ProveedorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProveedorTitle}">
+        <p:dialog id="ProveedorCreateDlg" widgetVar="ProveedorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Registrar proveedor">
             <h:form id="ProveedorCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{proveedorController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateProveedorLabel_proveedorid}" for="proveedorid" />
-                        <p:inputText id="proveedorid" value="#{proveedorController.selected.proveedorid}" title="#{bundle.CreateProveedorTitle_proveedorid}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_proveedorid}"/>
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_empresa}" for="empresa" />
                         <p:inputText id="empresa" value="#{proveedorController.selected.empresa}" title="#{bundle.CreateProveedorTitle_empresa}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_empresa}"/>
-                        <p:outputLabel value="#{bundle.CreateProveedorLabel_nombreContacto}" for="nombreContacto" />
+                        <p:outputLabel value="Nombre de contacto: " for="nombreContacto" />
                         <p:inputText id="nombreContacto" value="#{proveedorController.selected.nombreContacto}" title="#{bundle.CreateProveedorTitle_nombreContacto}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_nombreContacto}"/>
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_area}" for="area" />
                         <p:inputText id="area" value="#{proveedorController.selected.area}" title="#{bundle.CreateProveedorTitle_area}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_area}"/>
@@ -28,13 +26,15 @@
                         <p:inputText id="email" value="#{proveedorController.selected.email}" title="#{bundle.CreateProveedorTitle_email}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_email}"/>
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{proveedorController.selected.activo}" required="true" requiredMessage="#{bundle.EditProveedorRequiredMessage_activo}"/>
-                        <p:outputLabel value="#{bundle.CreateProveedorLabel_paginaWeb}" for="paginaWeb" />
+                        <p:outputLabel value="Pagina web: " for="paginaWeb" />
                         <p:inputText id="paginaWeb" value="#{proveedorController.selected.paginaWeb}" title="#{bundle.CreateProveedorTitle_paginaWeb}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_paginaWeb}"/>
-                        <p:outputLabel value="#{bundle.CreateProveedorLabel_domicilioFiscal}" for="domicilioFiscal" />
+                        <p:outputLabel value="Domicilio Fiscal" for="domicilioFiscal" />
                         <p:inputText id="domicilioFiscal" value="#{proveedorController.selected.domicilioFiscal}" title="#{bundle.CreateProveedorTitle_domicilioFiscal}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_domicilioFiscal}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{proveedorController.create}" value="#{bundle.Save}" update="display,:ProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProveedorCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProveedorCreateDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-outline-success" actionListener="#{proveedorController.create}" value="Guardar" update="display,:ProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProveedorCreateDialog');"/>
+                    <p:commandButton class="btn btn-outline-danger" value="Cancelar" onclick="ProveedorCreateDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

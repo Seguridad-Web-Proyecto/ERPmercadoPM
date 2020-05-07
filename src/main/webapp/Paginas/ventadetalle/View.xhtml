@@ -15,15 +15,17 @@
                         <h:outputText value="#{bundle.ViewVentadetalleLabel_cantidad}"/>
                         <h:outputText value="#{ventadetalleController.selected.cantidad}" title="#{bundle.ViewVentadetalleTitle_cantidad}"/>
                         <h:outputText value="#{bundle.ViewVentadetalleLabel_precioUnitario}"/>
-                        <h:outputText value="#{ventadetalleController.selected.precioUnitario}" title="#{bundle.ViewVentadetalleTitle_precioUnitario}"/>
+                        <h:outputText value="Precio Unitario " title="#{bundle.ViewVentadetalleTitle_precioUnitario}"/>
                         <h:outputText value="#{bundle.ViewVentadetalleLabel_importe}"/>
                         <h:outputText value="#{ventadetalleController.selected.importe}" title="#{bundle.ViewVentadetalleTitle_importe}"/>
-                        <h:outputText value="#{bundle.ViewVentadetalleLabel_ordenventa}"/>
+                        <h:outputText value="Orden de venta"/>
                         <h:outputText value="#{ventadetalleController.selected.ordenventa}" title="#{bundle.ViewVentadetalleTitle_ordenventa}"/>
                         <h:outputText value="#{bundle.ViewVentadetalleLabel_producto}"/>
                         <h:outputText value="#{ventadetalleController.selected.producto}" title="#{bundle.ViewVentadetalleTitle_producto}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="VentadetalleViewDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-sm btn-info" value="Aceptar" onclick="VentadetalleViewDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

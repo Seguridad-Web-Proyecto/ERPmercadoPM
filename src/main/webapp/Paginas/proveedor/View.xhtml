@@ -8,15 +8,15 @@
 
     <ui:composition>
 
-        <p:dialog id="ProveedorViewDlg" widgetVar="ProveedorViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProveedorTitle}">
+        <p:dialog id="ProveedorViewDlg" widgetVar="ProveedorViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Información">
             <h:form id="ProveedorViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{proveedorController.selected != null}">
-                        <h:outputText value="#{bundle.ViewProveedorLabel_proveedorid}"/>
+                        <h:outputText value="Id de proveedor"/>
                         <h:outputText value="#{proveedorController.selected.proveedorid}" title="#{bundle.ViewProveedorTitle_proveedorid}"/>
                         <h:outputText value="#{bundle.ViewProveedorLabel_empresa}"/>
                         <h:outputText value="#{proveedorController.selected.empresa}" title="#{bundle.ViewProveedorTitle_empresa}"/>
-                        <h:outputText value="#{bundle.ViewProveedorLabel_nombreContacto}"/>
+                        <h:outputText value="Nombre de contacto"/>
                         <h:outputText value="#{proveedorController.selected.nombreContacto}" title="#{bundle.ViewProveedorTitle_nombreContacto}"/>
                         <h:outputText value="#{bundle.ViewProveedorLabel_area}"/>
                         <h:outputText value="#{proveedorController.selected.area}" title="#{bundle.ViewProveedorTitle_area}"/>
@@ -28,12 +28,14 @@
                         <h:outputText value="#{proveedorController.selected.email}" title="#{bundle.ViewProveedorTitle_email}"/>
                         <h:outputText value="#{bundle.ViewProveedorLabel_activo}"/>
                         <p:selectBooleanCheckbox value="#{proveedorController.selected.activo}" disabled="true"/>
-                        <h:outputText value="#{bundle.ViewProveedorLabel_paginaWeb}"/>
+                        <h:outputText value="Pagina web"/>
                         <h:outputText value="#{proveedorController.selected.paginaWeb}" title="#{bundle.ViewProveedorTitle_paginaWeb}"/>
-                        <h:outputText value="#{bundle.ViewProveedorLabel_domicilioFiscal}"/>
+                        <h:outputText value="Domicilio fiscal"/>
                         <h:outputText value="#{proveedorController.selected.domicilioFiscal}" title="#{bundle.ViewProveedorTitle_domicilioFiscal}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="ProveedorViewDialog.hide()"/>
+                    <center>
+                    <p:commandButton class="btn btn-sm btn-info" value="Aceptar" onclick="ProveedorViewDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

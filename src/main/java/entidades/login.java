@@ -151,13 +151,21 @@ public class login implements Serializable
 //    setPersons(new UsersJpaController(utx,emf).findUsers(usuario));
 //    context.getExternalContext().getSessionMap().put("persons", persons);
 
-        if (request.isUserInRole("ADMINS"))
-        {
-            return "/secured/admin/menu.xhtml";
-        } else
-        {
-            return "/secured/user/menu.xhtml";
-        }
+//        if (request.isUserInRole("ADMINS"))
+//        {
+//            return "/secured/admin/menu.xhtml";
+//        } else
+//        {
+            return "/secured/user/index.xhtml";
+//        }
+    }
+    
+    public boolean isRolCompras()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        
+        return request.isUserInRole("COMPRAS");
     }
 
     public String logout()

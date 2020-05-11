@@ -35,6 +35,9 @@
     <security-role>
         <role-name>USERS</role-name>
     </security-role>
+    <security-role>
+        <role-name>COMPRAS</role-name>
+    </security-role>
     
     
     <security-constraint>
@@ -55,6 +58,30 @@
         <auth-constraint>
             <description>ADMINS</description>
             <role-name>ADMINS</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+        <display-name>Compras Pages</display-name>
+        <web-resource-collection>
+            <web-resource-name>Protected_Compras_Area</web-resource-name>
+            <description/>
+            <url-pattern>/secured/compras/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>PUT</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>POST</http-method>
+            <http-method>OPTIONS</http-method>
+            <http-method>TRACE</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        
+        <auth-constraint>
+            <description>COMPRAS</description>
+            <role-name>COMPRAS</role-name>
         </auth-constraint>
         <user-data-constraint>
             <transport-guarantee>NONE</transport-guarantee>

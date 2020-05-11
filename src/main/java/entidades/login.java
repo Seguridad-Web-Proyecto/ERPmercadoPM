@@ -145,19 +145,27 @@ public class login implements Serializable
             {
                 errorMessage = "login.failed";
             }
-            return "login.xhtml";
+            return "/faces/login.xhtml";
         }
         Principal user = request.getUserPrincipal();
 //    setPersons(new UsersJpaController(utx,emf).findUsers(usuario));
 //    context.getExternalContext().getSessionMap().put("persons", persons);
 
-//        if (request.isUserInRole("ADMINS"))
-//        {
-//            return "/secured/admin/menu.xhtml";
-//        } else
-//        {
-            return "/secured/user/index.xhtml";
-//        }
+        if (request.isUserInRole("ADMINS"))
+        {
+            return "/secured/admin/menu.xhtml";
+        } else if (request.isUserInRole("COMPRAS"))
+        {
+            return "/secured/compras/menu.xhtml";
+        
+        } else if (request.isUserInRole("USERS"))
+        {
+            return "/secured/user/menu.xhtml";
+        }else
+        {
+            return "/faces/login.xhtml";
+        }
+        
     }
     
     public boolean isRolCompras()
@@ -166,6 +174,22 @@ public class login implements Serializable
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         
         return request.isUserInRole("COMPRAS");
+    }
+    
+    public boolean isRoUsers()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        
+        return request.isUserInRole("USERS");
+    }
+    
+    public boolean isRolAdmin()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        
+        return request.isUserInRole("ADMINS");
     }
 
     public String logout()

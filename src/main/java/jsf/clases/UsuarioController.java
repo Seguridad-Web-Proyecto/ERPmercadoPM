@@ -81,7 +81,7 @@ public class UsuarioController implements Serializable
         if (pass2.equals(selected.getContrasenia()))
         {
             selected.setContrasenia(Encoding.convertPass(selected.getContrasenia()));
-            selected.setRol(new Rol(selected.getEmail(), "USERS"));
+            //selected.setRol(new Rol(selected.getEmail(), "USERS"));
             
             if (getUsuario(selected.getEmail())!=null)
             {

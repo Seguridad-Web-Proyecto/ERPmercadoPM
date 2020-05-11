@@ -13,5 +13,10 @@
     <principal-name>USERS</principal-name>
     <group-name>USERS</group-name>
   </security-role-mapping>
+  <security-role-mapping>
+    <role-name>COMPRAS</role-name>
+    <principal-name>COMPRAS</principal-name>
+    <group-name>COMPRAS</group-name>
+  </security-role-mapping>
   
 </payara-web-app>

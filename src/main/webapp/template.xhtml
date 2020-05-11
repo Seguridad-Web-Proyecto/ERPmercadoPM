@@ -38,6 +38,7 @@
                 <br></br>
                 <h:form id="menuForm">
                     <p:menubar>
+                        <p:menuitem action="#{login.logout()}" value="LOGOUT"/>
                         <p:menuitem value="Principal" outcome="/index" icon="ui-icon-home"/>
                         <p:submenu label="Modulos">
                             <p:menuitem value="Cargo" outcome="/Paginas/cargo/List.xhtml" />

@@ -151,20 +151,20 @@ public class login implements Serializable
 //    setPersons(new UsersJpaController(utx,emf).findUsers(usuario));
 //    context.getExternalContext().getSessionMap().put("persons", persons);
 
-        if (request.isUserInRole("ADMINS"))
-        {
-            return "/secured/admin/menu.xhtml";
-        } else if (request.isUserInRole("COMPRAS"))
-        {
-            return "/secured/compras/menu.xhtml";
-        
-        } else if (request.isUserInRole("USERS"))
-        {
+//        if (request.isUserInRole("ADMINS"))
+//        {
+//            return "/secured/admin/menu.xhtml";
+//        } else if (request.isUserInRole("COMPRAS"))
+//        {
+//            return "/secured/compras/menu.xhtml";
+//        
+//        } else if (request.isUserInRole("USERS"))
+//        {
             return "/secured/user/menu.xhtml";
-        }else
-        {
-            return "/faces/login.xhtml";
-        }
+//        }else
+//        {
+//            return "/faces/login.xhtml";
+//        }
         
     }
     
@@ -190,6 +190,30 @@ public class login implements Serializable
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         
         return request.isUserInRole("ADMINS");
+    }
+    
+    public boolean isRolVentas()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        
+        return request.isUserInRole("VENTAS");
+    }
+    
+    public boolean isRolRh()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        
+        return request.isUserInRole("RH");
+    }
+    
+    public boolean isRolInventario()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        
+        return request.isUserInRole("INVENTARIO");
     }
 
     public String logout()

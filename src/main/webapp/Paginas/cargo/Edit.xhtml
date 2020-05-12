@@ -13,9 +13,13 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{cargoController.selected != null}">
                         <p:outputLabel value="Nombre del cargo: " for="nombreCargo" />
-                        <p:inputText class="form-control" id="nombreCargo" value="#{cargoController.selected.nombreCargo}" title="#{bundle.EditCargoTitle_nombreCargo}" required="true" requiredMessage="#{bundle.EditCargoRequiredMessage_nombreCargo}"/>
-                        <p:outputLabel value="Salario mensual: " for="salarioMensual" />
-                        <p:inputText class="form-control" id="salarioMensual" value="#{cargoController.selected.salarioMensual}" title="#{bundle.EditCargoTitle_salarioMensual}" required="true" requiredMessage="#{bundle.EditCargoRequiredMessage_salarioMensual}"/>
+                        <p:inputText class="form-control" id="nombreCargo" value="#{cargoController.selected.nombreCargo}" title="#{bundle.EditCargoTitle_nombreCargo}" required="true" requiredMessage="#{bundle.EditCargoRequiredMessage_nombreCargo}">
+                            <f:validator validatorId="letrasValidator" />
+                                  </h:inputText>
+                        <p:outputLabel value="Salario mensual $: " for="salarioMensual" />
+                        <p:inputText class="form-control" id="salarioMensual" value="#{cargoController.selected.salarioMensual}" title="#{bundle.EditCargoTitle_salarioMensual}" required="true" requiredMessage="#{bundle.EditCargoRequiredMessage_salarioMensual}">
+                             <f:validator validatorId="numerosValidator" />
+                                        </h:inputText> 
                     </p:panelGrid>
                     <center>
                     <p:commandButton class="btn btn-sm btn-success" actionListener="#{cargoController.update}" value="Guardar" update="display,:CargoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CargoEditDialog');"/>

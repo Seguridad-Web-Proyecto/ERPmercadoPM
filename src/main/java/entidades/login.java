@@ -151,8 +151,8 @@ public class login implements Serializable
 //    setPersons(new UsersJpaController(utx,emf).findUsers(usuario));
 //    context.getExternalContext().getSessionMap().put("persons", persons);
 
-//        if (request.isUserInRole("ADMINS"))
-//        {
+        if (request.isUserInRole("ADMINS"))
+        {
 //            return "/secured/admin/menu.xhtml";
 //        } else if (request.isUserInRole("COMPRAS"))
 //        {
@@ -160,11 +160,11 @@ public class login implements Serializable
 //        
 //        } else if (request.isUserInRole("USERS"))
 //        {
+            return "/secured/admin/menu.xhtml";
+        }else
+        {
             return "/secured/user/menu.xhtml";
-//        }else
-//        {
-//            return "/faces/login.xhtml";
-//        }
+        }
         
     }
     

@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.EditCategoriaLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" class="form-control" value="#{categoriaController.selected.nombre}" title="#{bundle.EditCategoriaTitle_nombre}" required="true" requiredMessage="#{bundle.EditCategoriaRequiredMessage_nombre}">
                                    <f:validator validatorId="letrasValidator" />
-                                        </h:inputText> 
+                                        </p:inputText> 
                     </p:panelGrid>
                     <center>
                         <p:commandButton class="btn btn-sm btn-success" actionListener="#{categoriaController.update}" value="Guardar" update="display,:CategoriaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CategoriaEditDialog');"/>

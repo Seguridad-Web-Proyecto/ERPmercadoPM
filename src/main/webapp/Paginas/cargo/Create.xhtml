@@ -15,11 +15,11 @@
                         <p:outputLabel value="Nombre del cargo:" for="nombreCargo" />
                         <p:inputText class="form-control" id="nombreCargo" value="#{cargoController.selected.nombreCargo}" title="#{bundle.CreateCargoTitle_nombreCargo}" required="true" requiredMessage="#{bundle.CreateCargoRequiredMessage_nombreCargo}">
                                  <f:validator validatorId="letrasValidator" />
-                                  </h:inputText>
+                                  </p:inputText>
                         <p:outputLabel value="Salario mensual $:" for="salarioMensual" />
                         <p:inputText class="form-control" id="salarioMensual" value="#{cargoController.selected.salarioMensual}" title="#{bundle.CreateCargoTitle_salarioMensual}" required="true" requiredMessage="#{bundle.CreateCargoRequiredMessage_salarioMensual}">
                               <f:validator validatorId="numerosValidator" />
-                                        </h:inputText> 
+                                        </p:inputText> 
                     </p:panelGrid>
                     <center>
                     <p:commandButton class="btn btn-outline-success" actionListener="#{cargoController.create}" value="Guardar" update="display,:CargoListForm:datalist,:growl" oncomplete="handleSubmit(args,'CargoCreateDialog');"/>

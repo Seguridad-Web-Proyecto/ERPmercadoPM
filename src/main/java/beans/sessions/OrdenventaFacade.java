@@ -4,11 +4,12 @@
  * and open the template in the editor.
  */
 package beans.sessions;
-
 import entidades.Ordenventa;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +29,10 @@ public class OrdenventaFacade extends AbstractFacade<Ordenventa> {
     public OrdenventaFacade() {
         super(Ordenventa.class);
     }
-    
+    public List<Ordenventa> Listar(){
+        Query q= em.createNativeQuery("SELECT ordenventaid, fecha_venta, status, iva, subtotal, total, descripcion, clienteid, facturaid\n" +
+"	FROM public.ordenventa;",Ordenventa.class);
+        List<Ordenventa> lst=q.getResultList();
+        return lst;
+     }
 }

@@ -44,6 +44,9 @@
     <security-role>
         <role-name>RH</role-name>
     </security-role>
+    <security-role>
+        <role-name>INVENTARIO</role-name>
+    </security-role>
 
     
     
@@ -190,6 +193,7 @@
             <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
+    
     <security-constraint>
         
     <display-name>Shared Pages</display-name>

@@ -13,15 +13,27 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tarjetacreditoventaController.selected != null}">
                         <p:outputLabel value="#{bundle.EditTarjetacreditoventaLabel_numero}" for="numero" />
-                        <p:inputText id="numero" value="#{tarjetacreditoventaController.selected.numero}" title="#{bundle.EditTarjetacreditoventaTitle_numero}" required="true" requiredMessage="#{bundle.EditTarjetacreditoventaRequiredMessage_numero}"/>
+                        <p:inputText id="numero" value="#{tarjetacreditoventaController.selected.numero}" title="#{bundle.EditTarjetacreditoventaTitle_numero}" required="true" requiredMessage="#{bundle.EditTarjetacreditoventaRequiredMessage_numero}">
+                            <f:validator validatorId="numerosValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="#{bundle.EditTarjetacreditoventaLabel_cvc}" for="cvc" />
-                        <p:inputText id="cvc" value="#{tarjetacreditoventaController.selected.cvc}" title="#{bundle.EditTarjetacreditoventaTitle_cvc}" required="true" requiredMessage="#{bundle.EditTarjetacreditoventaRequiredMessage_cvc}"/>
+                        <p:inputText id="cvc" value="#{tarjetacreditoventaController.selected.cvc}" title="#{bundle.EditTarjetacreditoventaTitle_cvc}" required="true" requiredMessage="#{bundle.EditTarjetacreditoventaRequiredMessage_cvc}">
+                            <f:validator validatorId="numerosValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="Nombre del titular" for="nombreTitular" />
-                        <p:inputText id="nombreTitular" value="#{tarjetacreditoventaController.selected.nombreTitular}" title="#{bundle.EditTarjetacreditoventaTitle_nombreTitular}" required="true" requiredMessage="#{bundle.EditTarjetacreditoventaRequiredMessage_nombreTitular}"/>
+                        <p:inputText id="nombreTitular" value="#{tarjetacreditoventaController.selected.nombreTitular}" title="#{bundle.EditTarjetacreditoventaTitle_nombreTitular}" required="true" requiredMessage="#{bundle.EditTarjetacreditoventaRequiredMessage_nombreTitular}">
+                             <f:validator validatorId="letrasValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="Fecha de expiración" for="fechaExpiracion" />
                         <p:inputText id="fechaExpiracion" value="#{tarjetacreditoventaController.selected.fechaExpiracion}" title="#{bundle.EditTarjetacreditoventaTitle_fechaExpiracion}" required="true" requiredMessage="#{bundle.EditTarjetacreditoventaRequiredMessage_fechaExpiracion}"/>
+                        
                         <p:outputLabel value="Lugar de facturación" for="lugarFacturacion" />
-                        <p:inputText id="lugarFacturacion" value="#{tarjetacreditoventaController.selected.lugarFacturacion}" title="#{bundle.EditTarjetacreditoventaTitle_lugarFacturacion}" required="true" requiredMessage="#{bundle.EditTarjetacreditoventaRequiredMessage_lugarFacturacion}"/>
+                        <p:inputText id="lugarFacturacion" value="#{tarjetacreditoventaController.selected.lugarFacturacion}" title="#{bundle.EditTarjetacreditoventaTitle_lugarFacturacion}" required="true" requiredMessage="#{bundle.EditTarjetacreditoventaRequiredMessage_lugarFacturacion}">
+                             <f:validator validatorId="letrasValidator" />
+                        </p:inputText>
                     </p:panelGrid>
                     <center>
                     <p:commandButton class="btn btn-sm btn-success" actionListener="#{tarjetacreditoventaController.update}" value="Guardar" update="display,:TarjetacreditoventaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TarjetacreditoventaEditDialog');"/>

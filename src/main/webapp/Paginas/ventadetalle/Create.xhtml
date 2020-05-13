@@ -13,11 +13,20 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{ventadetalleController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateVentadetalleLabel_cantidad}" for="cantidad" />
-                        <p:inputText id="cantidad" value="#{ventadetalleController.selected.cantidad}" title="#{bundle.CreateVentadetalleTitle_cantidad}" required="true" requiredMessage="#{bundle.CreateVentadetalleRequiredMessage_cantidad}"/>
+                        <p:inputText id="cantidad" value="#{ventadetalleController.selected.cantidad}" title="#{bundle.CreateVentadetalleTitle_cantidad}" required="true" requiredMessage="#{bundle.CreateVentadetalleRequiredMessage_cantidad}">
+                            <f:validator validatorId="numerosValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="Precio unitario:" for="precioUnitario" />
-                        <p:inputText id="precioUnitario" value="#{ventadetalleController.selected.precioUnitario}" title="#{bundle.CreateVentadetalleTitle_precioUnitario}" required="true" requiredMessage="#{bundle.CreateVentadetalleRequiredMessage_precioUnitario}"/>
+                        <p:inputText id="precioUnitario" value="#{ventadetalleController.selected.precioUnitario}" title="#{bundle.CreateVentadetalleTitle_precioUnitario}" required="true" requiredMessage="#{bundle.CreateVentadetalleRequiredMessage_precioUnitario}">
+                            <f:validator validatorId="numerosValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="#{bundle.CreateVentadetalleLabel_importe}" for="importe" />
-                        <p:inputText id="importe" value="#{ventadetalleController.selected.importe}" title="#{bundle.CreateVentadetalleTitle_importe}" required="true" requiredMessage="#{bundle.CreateVentadetalleRequiredMessage_importe}"/>
+                        <p:inputText id="importe" value="#{ventadetalleController.selected.importe}" title="#{bundle.CreateVentadetalleTitle_importe}" required="true" requiredMessage="#{bundle.CreateVentadetalleRequiredMessage_importe}">
+                            <f:validator validatorId="numerosValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="Orden de venta" for="ordenventa" />
                         <p:selectOneMenu id="ordenventa" value="#{ventadetalleController.selected.ordenventa}" required="true" requiredMessage="#{bundle.EditVentadetalleRequiredMessage_ordenventa}">
                             <f:selectItems value="#{ordenventaController.itemsAvailableSelectOne}"

@@ -28,7 +28,7 @@ import restapplication.api_consumer.ClienteHTTP;
 @Path("productos")
 public class ProductoFacadeREST extends AbstractFacade<Producto> {
 
-    @PersistenceContext(unitName = "com.mycompany_ERProveedores_war_1.0-SNAPSHOTPU")
+    @PersistenceContext(unitName = "com.mycompany_ERPmercado_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
     public ProductoFacadeREST() {

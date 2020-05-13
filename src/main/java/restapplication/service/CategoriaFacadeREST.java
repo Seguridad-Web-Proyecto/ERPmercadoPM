@@ -26,7 +26,7 @@ import restapplication.api_consumer.ClienteHTTP;
 @Path("categorias")
 public class CategoriaFacadeREST extends AbstractFacade<Categoria> {
 
-    @PersistenceContext(unitName = "com.mycompany_ERProveedores_war_1.0-SNAPSHOTPU")
+    @PersistenceContext(unitName = "com.mycompany_ERPmercado_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
     public CategoriaFacadeREST() {

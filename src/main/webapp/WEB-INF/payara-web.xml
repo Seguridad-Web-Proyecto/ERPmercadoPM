@@ -2,7 +2,6 @@
 <!DOCTYPE payara-web-app PUBLIC "-//Payara.fish//DTD Payara Server 4 Servlet 3.0//EN" "https://docs.payara.fish/schemas/payara-web-app_4.dtd">
 <payara-web-app error-url="">
   <class-loader delegate="true"/>
-  
   <security-role-mapping>
     <role-name>ADMINS</role-name>
     <principal-name>ADMINS</principal-name>
@@ -33,5 +32,4 @@
     <principal-name>INVENTARIO</principal-name>
     <group-name>INVENTARIO</group-name>
   </security-role-mapping>
-  
 </payara-web-app>

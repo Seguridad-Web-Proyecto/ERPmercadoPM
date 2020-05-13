@@ -32,8 +32,8 @@ public class ClienteHTTP {
     /*public static void main(String[] args) {
         List<Producto> productos = productosProveedor();
     }*/
-    private static final String pathProductos = "http://localhost:8080/ERPsubproveedoresPM/webresources/productos";
-    private static final String pathCategorias = "http://localhost:8080/ERPsubproveedoresPM/webresources/categorias";
+    private static final String pathProductos = "http://localhost:8080/ERPproveedoresPM/webresources/productos";
+    private static final String pathCategorias = "http://localhost:8080/ERPproveedoresPM/webresources/categorias";
     private static final String USER_AGENT = "Mozilla/5.0";
     
     public static List<Producto> productosProveedor(String path){

@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class SolicitarPedidos {
     
-    private static final String pathPedidos = "http://localhost:8080/ERPsubproveedoresPM/webresources/pedidos";
+    private static final String pathPedidos = "http://localhost:8080/ERPproveedoresPM/webresources/pedidos";
     
     public static void main(String args[]){
         Ordenventa ordenventa = new Ordenventa();

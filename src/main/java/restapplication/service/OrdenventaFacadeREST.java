@@ -35,7 +35,7 @@ import restapplication.Common;
 @Path("pedidos")
 public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
 
-    @PersistenceContext(unitName = "com.mycompany_ERProveedores_war_1.0-SNAPSHOTPU")
+    @PersistenceContext(unitName = "com.mycompany_ERPmercado_war_1.0-SNAPSHOTPU")
     private EntityManager em;
     
     private ClienteJpaController clienteJpaController = 
@@ -43,42 +43,6 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
 
     public OrdenventaFacadeREST() {
         super(Ordenventa.class);
-    }
-
-    @POST
-    @Override
-    //@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response create(Ordenventa entity) {
-        // CLIENTE
-        Cliente cliente = clienteJpaController.findClienteByEmail(entity.getClienteid().getEmail());
-        if(cliente==null){
-            return Response.status(Status.BAD_REQUEST).build();
-        }
-        entity.setClienteid(cliente);
-        entity.setSubtotal(0);
-        entity.setTotal(0);
-        entity.setIva((short)16);
-        entity.setFechaVenta(new Date());
-        entity.setStatus("pedido pendiente...");
-        entity.setVentadetalleCollection(null);
-        Ordenventa ordenventaIngresado = null;
-        Response response = super.create(entity);
-        ordenventaIngresado = (Ordenventa) response.getEntity();
-        return response;
-    }
-    
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response realizarPedido(Ordenventa entity){
-        Ordenventa ordenventa = super.find(entity.getOrdenventaid());
-        if(ordenventa==null){
-            return Response.status(Status.BAD_REQUEST).build();
-        }else{
-            ordenventa.setStatus("Pedido realizado");
-            return Response.ok().build();
-        }
     }
 
     @GET

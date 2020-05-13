@@ -14,7 +14,7 @@
                     <p:panelGrid columns="2" rendered="#{rolController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateRolLabel_email}" for="email" />
                         <p:inputText id="email" value="#{rolController.selected.email}" title="#{bundle.CreateRolTitle_email}" required="true" requiredMessage="#{bundle.CreateRolRequiredMessage_email}">
-                            <f:validator validatorId="emailValidator" />
+             
                         </p:inputText>
                         
                         <p:outputLabel value="Rol" for="nombre" />

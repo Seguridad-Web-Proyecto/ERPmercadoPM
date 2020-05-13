@@ -13,15 +13,25 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioswController.selected != null}">
                         <p:outputLabel value="#{bundle.EditUsuarioswLabel_usuario}" for="usuario" />
-                        <p:inputText id="usuario" value="#{usuarioswController.selected.usuario}" title="#{bundle.EditUsuarioswTitle_usuario}" required="true" requiredMessage="#{bundle.EditUsuarioswRequiredMessage_usuario}"/>
+                        <p:inputText id="usuario" value="#{usuarioswController.selected.usuario}" title="#{bundle.EditUsuarioswTitle_usuario}" required="true" requiredMessage="#{bundle.EditUsuarioswRequiredMessage_usuario}">
+                            <f:validator validatorId="letrasValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="Contraseña" for="contrasenia" />
                         <p:inputText id="contrasenia" value="#{usuarioswController.selected.contrasenia}" title="#{bundle.EditUsuarioswTitle_contrasenia}" required="true" requiredMessage="#{bundle.EditUsuarioswRequiredMessage_contrasenia}"/>
+                        
                         <p:outputLabel value="Status: " for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{usuarioswController.selected.activo}" required="true" requiredMessage="#{bundle.EditUsuarioswRequiredMessage_activo}"/>
+                        
                         <p:outputLabel value="#{bundle.EditUsuarioswLabel_empresa}" for="empresa" />
-                        <p:inputText id="empresa" value="#{usuarioswController.selected.empresa}" title="#{bundle.EditUsuarioswTitle_empresa}" required="true" requiredMessage="#{bundle.EditUsuarioswRequiredMessage_empresa}"/>
+                        <p:inputText id="empresa" value="#{usuarioswController.selected.empresa}" title="#{bundle.EditUsuarioswTitle_empresa}" required="true" requiredMessage="#{bundle.EditUsuarioswRequiredMessage_empresa}">
+                            <f:validator validatorId="letrasValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="#{bundle.EditUsuarioswLabel_rfc}" for="rfc" />
-                        <p:inputText id="rfc" value="#{usuarioswController.selected.rfc}" title="#{bundle.EditUsuarioswTitle_rfc}" required="true" requiredMessage="#{bundle.EditUsuarioswRequiredMessage_rfc}"/>
+                        <p:inputText id="rfc" value="#{usuarioswController.selected.rfc}" title="#{bundle.EditUsuarioswTitle_rfc}" required="true" requiredMessage="#{bundle.EditUsuarioswRequiredMessage_rfc}">
+                             <f:validator validatorId="rfcValidator" />
+                        </p:inputText>
                     </p:panelGrid>
                     <center>
                     <p:commandButton class="btn btn-sm btn-success" actionListener="#{usuarioswController.update}" value="Guardar" update="display,:UsuarioswListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioswEditDialog');"/>

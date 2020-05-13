@@ -13,7 +13,10 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.EditUsuarioTitle_email}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_email}"/>
+                        <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.EditUsuarioTitle_email}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_email}">
+                            <f:validator validatorId="emailValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="Contraseña: " for="contrasenia" />
                         <p:inputText id="contrasenia" value="#{usuarioController.selected.contrasenia}" title="#{bundle.EditUsuarioTitle_contrasenia}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_contrasenia}"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_activo}" for="activo" />

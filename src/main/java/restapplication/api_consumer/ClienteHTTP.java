@@ -160,6 +160,7 @@ public class ClienteHTTP {
     }
 
     public static String peticionHttpGet(String urlParaVisitar) throws Exception {
+        System.out.println("Supermercado realizando petición GET a la url "+urlParaVisitar);
         // Esto es lo que vamos a devolver
         StringBuilder resultado = new StringBuilder();
         // Crear un objeto de tipo URL
@@ -177,7 +178,7 @@ public class ClienteHTTP {
         // Cerrar el BufferedReader
         rd.close();
         // Regresar resultado, pero como cadena, no como StringBuilder
-        
+        System.out.println("Supermercado recibiendo información...");
         return resultado.toString();
     }
     

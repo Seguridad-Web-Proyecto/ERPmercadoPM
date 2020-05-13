@@ -13,13 +13,25 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{productoController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateProductoLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{productoController.selected.nombre}" title="#{bundle.CreateProductoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_nombre}"/>
+                        <p:inputText id="nombre" value="#{productoController.selected.nombre}" title="#{bundle.CreateProductoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_nombre}">
+                            <f:validator validatorId="letrasValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="#{bundle.CreateProductoLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{productoController.selected.descripcion}" title="#{bundle.CreateProductoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_descripcion}"/>
+                        <p:inputText id="descripcion" value="#{productoController.selected.descripcion}" title="#{bundle.CreateProductoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_descripcion}">
+                            <f:validator validatorId="letrasValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="Unidad de medida: " for="unidadMedida" />
-                        <p:inputText id="unidadMedida" value="#{productoController.selected.unidadMedida}" title="#{bundle.CreateProductoTitle_unidadMedida}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_unidadMedida}"/>
+                        <p:inputText id="unidadMedida" value="#{productoController.selected.unidadMedida}" title="#{bundle.CreateProductoTitle_unidadMedida}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_unidadMedida}">
+                            <f:validator validatorId="letrasValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="Precio unitario: " for="precioUnitario" />
-                        <p:inputText id="precioUnitario" value="#{productoController.selected.precioUnitario}" title="#{bundle.CreateProductoTitle_precioUnitario}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_precioUnitario}"/>
+                        <p:inputText id="precioUnitario" value="#{productoController.selected.precioUnitario}" title="#{bundle.CreateProductoTitle_precioUnitario}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_precioUnitario}">
+                            <f:validator validatorId="numerosValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="Id de categoria: " for="categoriaid" />
                         <p:selectOneMenu id="categoriaid" value="#{productoController.selected.categoriaid}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaid}">
                             <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"

@@ -13,23 +13,48 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{proveedorController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_empresa}" for="empresa" />
-                        <p:inputText id="empresa" value="#{proveedorController.selected.empresa}" title="#{bundle.CreateProveedorTitle_empresa}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_empresa}"/>
+                        <p:inputText id="empresa" value="#{proveedorController.selected.empresa}" title="#{bundle.CreateProveedorTitle_empresa}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_empresa}">
+                            <f:validator validatorId="letrasValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="Nombre de contacto: " for="nombreContacto" />
-                        <p:inputText id="nombreContacto" value="#{proveedorController.selected.nombreContacto}" title="#{bundle.CreateProveedorTitle_nombreContacto}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_nombreContacto}"/>
+                        <p:inputText id="nombreContacto" value="#{proveedorController.selected.nombreContacto}" title="#{bundle.CreateProveedorTitle_nombreContacto}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_nombreContacto}">
+                            <f:validator validatorId="letrasValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_area}" for="area" />
-                        <p:inputText id="area" value="#{proveedorController.selected.area}" title="#{bundle.CreateProveedorTitle_area}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_area}"/>
+                        <p:inputText id="area" value="#{proveedorController.selected.area}" title="#{bundle.CreateProveedorTitle_area}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_area}">
+                            <f:validator validatorId="letrasValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_telefono}" for="telefono" />
-                        <p:inputText id="telefono" value="#{proveedorController.selected.telefono}" title="#{bundle.CreateProveedorTitle_telefono}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_telefono}"/>
+                        <p:inputText id="telefono" value="#{proveedorController.selected.telefono}" title="#{bundle.CreateProveedorTitle_telefono}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_telefono}">
+                            <f:validator validatorId="telefonoValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_rfc}" for="rfc" />
-                        <p:inputText id="rfc" value="#{proveedorController.selected.rfc}" title="#{bundle.CreateProveedorTitle_rfc}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_rfc}"/>
+                        <p:inputText id="rfc" value="#{proveedorController.selected.rfc}" title="#{bundle.CreateProveedorTitle_rfc}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_rfc}">
+                            <f:validator validatorId="rfcValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{proveedorController.selected.email}" title="#{bundle.CreateProveedorTitle_email}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_email}"/>
+                        <p:inputText id="email" value="#{proveedorController.selected.email}" title="#{bundle.CreateProveedorTitle_email}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_email}">
+                            <f:validator validatorId="emailValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{proveedorController.selected.activo}" required="true" requiredMessage="#{bundle.EditProveedorRequiredMessage_activo}"/>
+                        
                         <p:outputLabel value="Pagina web: " for="paginaWeb" />
-                        <p:inputText id="paginaWeb" value="#{proveedorController.selected.paginaWeb}" title="#{bundle.CreateProveedorTitle_paginaWeb}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_paginaWeb}"/>
+                        <p:inputText id="paginaWeb" value="#{proveedorController.selected.paginaWeb}" title="#{bundle.CreateProveedorTitle_paginaWeb}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_paginaWeb}">
+                            <f:validator validatorId="urlValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="Domicilio Fiscal" for="domicilioFiscal" />
-                        <p:inputText id="domicilioFiscal" value="#{proveedorController.selected.domicilioFiscal}" title="#{bundle.CreateProveedorTitle_domicilioFiscal}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_domicilioFiscal}"/>
+                        <p:inputText id="domicilioFiscal" value="#{proveedorController.selected.domicilioFiscal}" title="#{bundle.CreateProveedorTitle_domicilioFiscal}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_domicilioFiscal}">
+                            <f:validator validatorId="letrasValidator" />
+                        </p:inputText>
+                        
                     </p:panelGrid>
                     <center>
                     <p:commandButton class="btn btn-outline-success" actionListener="#{proveedorController.create}" value="Guardar" update="display,:ProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProveedorCreateDialog');"/>

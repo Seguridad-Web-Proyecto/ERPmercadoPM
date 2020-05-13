@@ -14,10 +14,17 @@
                     <p:panelGrid columns="2" rendered="#{pagoventaController.selected != null}">
                         <p:outputLabel value="Fecha de pago: " for="fechaPago" />
                         <p:calendar id="fechaPago" pattern="MM/dd/yyyy" value="#{pagoventaController.selected.fechaPago}" title="#{bundle.EditPagoventaTitle_fechaPago}" required="true" requiredMessage="#{bundle.EditPagoventaRequiredMessage_fechaPago}" showOn="button"/>
+                       
                         <p:outputLabel value="#{bundle.EditPagoventaLabel_monto}" for="monto" />
-                        <p:inputText id="monto" value="#{pagoventaController.selected.monto}" title="#{bundle.EditPagoventaTitle_monto}" required="true" requiredMessage="#{bundle.EditPagoventaRequiredMessage_monto}"/>
+                        <p:inputText id="monto" value="#{pagoventaController.selected.monto}" title="#{bundle.EditPagoventaTitle_monto}" required="true" requiredMessage="#{bundle.EditPagoventaRequiredMessage_monto}">
+                             <f:validator validatorId="numerosValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="#{bundle.EditPagoventaLabel_estado}" for="estado" />
-                        <p:inputText id="estado" value="#{pagoventaController.selected.estado}" title="#{bundle.EditPagoventaTitle_estado}" required="true" requiredMessage="#{bundle.EditPagoventaRequiredMessage_estado}"/>
+                        <p:inputText id="estado" value="#{pagoventaController.selected.estado}" title="#{bundle.EditPagoventaTitle_estado}" required="true" requiredMessage="#{bundle.EditPagoventaRequiredMessage_estado}">
+                            <f:validator validatorId="letrasValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="Id de tarjeta" for="tarjetacreditoid" />
                         <p:selectOneMenu id="tarjetacreditoid" value="#{pagoventaController.selected.tarjetacreditoid}" required="true" requiredMessage="#{bundle.EditPagoventaRequiredMessage_tarjetacreditoid}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

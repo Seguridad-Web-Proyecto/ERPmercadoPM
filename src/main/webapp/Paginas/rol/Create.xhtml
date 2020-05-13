@@ -13,9 +13,15 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{rolController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateRolLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{rolController.selected.email}" title="#{bundle.CreateRolTitle_email}" required="true" requiredMessage="#{bundle.CreateRolRequiredMessage_email}"/>
+                        <p:inputText id="email" value="#{rolController.selected.email}" title="#{bundle.CreateRolTitle_email}" required="true" requiredMessage="#{bundle.CreateRolRequiredMessage_email}">
+                            <f:validator validatorId="emailValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="Rol" for="nombre" />
-                        <p:inputText id="nombre" value="#{rolController.selected.nombre}" title="#{bundle.CreateRolTitle_nombre}" required="true" requiredMessage="#{bundle.CreateRolRequiredMessage_nombre}"/>
+                        <p:inputText id="nombre" value="#{rolController.selected.nombre}" title="#{bundle.CreateRolTitle_nombre}" required="true" requiredMessage="#{bundle.CreateRolRequiredMessage_nombre}">
+                             <f:validator validatorId="letrasValidator" />
+                        </p:inputText>
+                        
                     </p:panelGrid>
                     <center>
                     <p:commandButton class="btn btn-outline-success" actionListener="#{rolController.create}" value="Guardar" update="display,:RolListForm:datalist,:growl" oncomplete="handleSubmit(args,'RolCreateDialog');"/>

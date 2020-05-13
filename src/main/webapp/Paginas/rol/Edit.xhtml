@@ -20,7 +20,10 @@
                                            itemValue="#{usuarioItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="Rol" for="nombre" />
-                        <p:inputText id="nombre" value="#{rolController.selected.nombre}" title="#{bundle.EditRolTitle_nombre}" required="true" requiredMessage="#{bundle.EditRolRequiredMessage_nombre}"/>
+                        <p:inputText id="nombre" value="#{rolController.selected.nombre}" title="#{bundle.EditRolTitle_nombre}" required="true" requiredMessage="#{bundle.EditRolRequiredMessage_nombre}">
+                            <f:validator validatorId="letrasValidator" />
+                        </p:inputText>
+                        
                     </p:panelGrid>
                     <center>
                     <p:commandButton class="btn btn-sm btn-success" actionListener="#{rolController.update}" value="Guardar" update="display,:RolListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RolEditDialog');"/>

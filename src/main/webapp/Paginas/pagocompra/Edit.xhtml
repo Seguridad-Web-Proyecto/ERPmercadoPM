@@ -14,10 +14,17 @@
                     <p:panelGrid columns="2" rendered="#{pagocompraController.selected != null}">
                         <p:outputLabel value="Fecha de pago: " for="fechaPago" />
                         <p:calendar id="fechaPago" pattern="MM/dd/yyyy" value="#{pagocompraController.selected.fechaPago}" title="#{bundle.EditPagocompraTitle_fechaPago}" required="true" requiredMessage="#{bundle.EditPagocompraRequiredMessage_fechaPago}" showOn="button"/>
+                        
                         <p:outputLabel value="#{bundle.EditPagocompraLabel_monto}" for="monto" />
-                        <p:inputText id="monto" value="#{pagocompraController.selected.monto}" title="#{bundle.EditPagocompraTitle_monto}" required="true" requiredMessage="#{bundle.EditPagocompraRequiredMessage_monto}"/>
+                        <p:inputText id="monto" value="#{pagocompraController.selected.monto}" title="#{bundle.EditPagocompraTitle_monto}" required="true" requiredMessage="#{bundle.EditPagocompraRequiredMessage_monto}">
+                            <f:validator validatorId="numerosValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="#{bundle.EditPagocompraLabel_estado}" for="estado" />
-                        <p:inputText id="estado" value="#{pagocompraController.selected.estado}" title="#{bundle.EditPagocompraTitle_estado}" required="true" requiredMessage="#{bundle.EditPagocompraRequiredMessage_estado}"/>
+                        <p:inputText id="estado" value="#{pagocompraController.selected.estado}" title="#{bundle.EditPagocompraTitle_estado}" required="true" requiredMessage="#{bundle.EditPagocompraRequiredMessage_estado}">
+                            <f:validator validatorId="letrasValidator" />
+                        </p:inputText>
+                        
                         <p:outputLabel value="Id de tarjeta: " for="tarjetacreditoid" />
                         <p:selectOneMenu id="tarjetacreditoid" value="#{pagocompraController.selected.tarjetacreditoid}" required="true" requiredMessage="#{bundle.EditPagocompraRequiredMessage_tarjetacreditoid}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

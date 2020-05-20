@@ -33,9 +33,9 @@ public class SolicitarPedidos {
     public static Ordenventa pruebaGenerarPedido() {
         Ordenventa ordenventa = new Ordenventa();
         Cliente cliente = new Cliente();
-        cliente.setEmail("compras@walmart.com.mx");
+        cliente.setEmail("compras@supermercado.com");
         ordenventa.setClienteid(cliente);
-        ordenventa.setDescripcion("Orden de venta realizada a las 7:23pm 19/05/2020");
+        ordenventa.setDescripcion("Orden de venta. Supermercado - proveedor");
         //agregarDetallesAlPedido(ordenventa, detalles);
         System.out.println("Realizando pedido...");
         Response responseOrdenVenta = APIConsumer.realizarPedido(ordenventa);

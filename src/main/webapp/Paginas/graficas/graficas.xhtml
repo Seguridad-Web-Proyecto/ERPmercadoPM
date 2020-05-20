@@ -15,7 +15,7 @@
         <h:form>
             <br/>
             <p:commandButton value ="graficar" id="graficar" actionListener="#{ordenventaBean.graficar()}" update="hpgGrafico"/>
-            <h:panelGrid id="hpgGrafico">
+          <h:panelGrid id="hpgGrafico"> 
                 
                 <p:chart type="bar" model="#{ordenventaBean.barra}" style="width: 400px; height: 500px" rendered="#{ordenventaBean.barra !=null}"/>
                 

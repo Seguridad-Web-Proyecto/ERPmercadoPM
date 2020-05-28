@@ -83,7 +83,7 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
         return response;
     }
     
-    @PUT
+    @POST
     @Path("/solicitar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -93,26 +93,6 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
             return Response.status(Status.BAD_REQUEST).build();
         }else{
             ordenventa.setStatus("Pedido realizado!");
-            // solicitar pedidos subproveedores
-            Ordenventa nuevaOrden = new Ordenventa();
-            Cliente cliente = new Cliente();
-            cliente.setEmail("compras@walmart.com.mx");
-            nuevaOrden.setClienteid(cliente);
-            nuevaOrden.setDescripcion("Realizando pedido para el proveedor");
-            /*Response responsePedido = APIConsumer.realizarPedido(nuevaOrden);
-            Ordenventa ventaResponse = responsePedido.readEntity(Ordenventa.class);
-            
-            ArrayList<Ventadetalle> ventadetalleList = new ArrayList<>();
-            for(Ventadetalle vd: ordenventa.getVentadetalleCollection()){
-                Ventadetalle ventadetalle = new Ventadetalle();
-                ventadetalle.setCantidad(vd.getCantidad());
-                ventadetalle.setOrdenventa(ventaResponse);
-                ventadetalle.setProducto(vd.getProducto());
-            }
-            ventaResponse.setVentadetalleCollection(ventadetalleList);
-            
-            Response responseDetalles = APIConsumer.agregarDetallesAlPedido(ventaResponse);
-            Response concluirPedido = APIConsumer.concluirPedido(ventaResponse);*/
             return Response.ok().build();
         }
     }
@@ -145,7 +125,8 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
                     return Response.status(Status.BAD_REQUEST).build();
                 }
                 //PRODUCTO
-                Producto productoAPI = APIConsumer.obtenerProductoXId(entity.getProducto().getProductoid());
+                Producto productoAPI = Common.convertirProductoPojoAProducto(
+                        APIConsumer.obtenerProductoXId(entity.getProducto().getProductoid()));
                 if(productoAPI==null){
                     return Response.status(Status.NOT_FOUND).build();
                 }

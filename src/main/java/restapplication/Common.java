@@ -15,6 +15,7 @@ import entidades.VentadetallePK;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import restapplication.pojos.ProductoPOJO;
 
 /**
  *
@@ -75,6 +76,26 @@ public class Common {
             returnFactura.setPagoid(Common.limpiarPagoVenta(factura.getPagoid()));
         }
         return returnFactura;
+    }
+    
+    public static Producto convertirProductoPojoAProducto(ProductoPOJO productoPOJO){
+        Producto producto = new Producto();
+        producto.setProductoid(productoPOJO.getProductoid());
+        producto.setNombre(productoPOJO.getNombre());
+        producto.setDescripcion(productoPOJO.getDescripcion());
+        producto.setPrecioUnitario(productoPOJO.getPrecioUnitario());
+        producto.setUnidadMedida(productoPOJO.getUnidadMedida());
+        producto.setCategoriaid(productoPOJO.getCategoriaid());
+        if(productoPOJO.getCompradetalleCollection()!=null){
+            producto.setCompradetalleCollection(productoPOJO.getCompradetalleCollection());
+        }
+        if(productoPOJO.getVentadetalleCollection()!=null){
+            producto.setVentadetalleCollection(productoPOJO.getVentadetalleCollection());
+        }
+        if(productoPOJO.getGanancia()!=null){
+            producto.setGanancia(productoPOJO.getGanancia());
+        }
+        return producto;
     }
     
 }

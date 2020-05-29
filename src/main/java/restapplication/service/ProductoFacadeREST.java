@@ -18,7 +18,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import restapplication.Common;
-import restapplication.api_consumer.APIConsumer;
+import restapplication.api_consumer.APIConsumerMercado;
 import restapplication.pojos.ProductoPOJO;
 
 /**
@@ -40,7 +40,7 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Producto find(@PathParam("id") Long id) {
-        Producto producto = Common.convertirProductoPojoAProducto(APIConsumer.obtenerProductoXId(id));
+        Producto producto = Common.convertirProductoPojoAProducto(APIConsumerMercado.obtenerProductoXId(id));
         Ganancia ganancia = new Ganancia();
         ganancia.setPorcentaje((short)10);
         producto.setGanancia(ganancia);
@@ -53,7 +53,7 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     @Override
     @Produces(MediaType.APPLICATION_JSON)
     public List<Producto> findAll() {
-        List<ProductoPOJO> productosAPI = APIConsumer.productos("");
+        List<ProductoPOJO> productosAPI = APIConsumerMercado.productos("");
         List<Producto> returnList = new ArrayList<>();
         for(ProductoPOJO productoPOJO: productosAPI){
             Producto producto = Common.convertirProductoPojoAProducto(productoPOJO);
@@ -71,7 +71,7 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     @Path("{from}/{to}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Producto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        List<ProductoPOJO> productosAPI = APIConsumer.productos("/"+from.toString()+"/"+to.toString());
+        List<ProductoPOJO> productosAPI = APIConsumerMercado.productos("/"+from.toString()+"/"+to.toString());
         List<Producto> returnList = new ArrayList<>();
         for(ProductoPOJO productoPOJO: productosAPI){
             Producto producto = Common.convertirProductoPojoAProducto(productoPOJO);
@@ -85,7 +85,7 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
-        return APIConsumer.productosCOUNT();
+        return APIConsumerMercado.productosCOUNT();
     }
 
     @Override

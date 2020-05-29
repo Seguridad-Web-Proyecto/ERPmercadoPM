@@ -36,7 +36,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import restapplication.Common;
-import restapplication.api_consumer.APIConsumer;
+import restapplication.api_consumer.APIConsumerMercado;
 
 /**
  *
@@ -122,8 +122,7 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
                     return Response.status(Status.BAD_REQUEST).build();
                 }
                 //PRODUCTO
-                Producto productoAPI = Common.convertirProductoPojoAProducto(
-                        APIConsumer.obtenerProductoXId(entity.getProducto().getProductoid()));
+                Producto productoAPI = Common.convertirProductoPojoAProducto(APIConsumerMercado.obtenerProductoXId(entity.getProducto().getProductoid()));
                 if(productoAPI==null){
                     return Response.status(Status.NOT_FOUND).build();
                 }
@@ -172,10 +171,10 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
             ordenventa.setFacturaid(facturaCreada);*/
             
             // solicitar pedidos subproveedores
-            /*Ordenventa pedidoGenerado = 
-                    APIConsumer.generarPedidoCompleto("Pedido para proveedor", 
+            Ordenventa pedidoGenerado = 
+                    APIConsumerMercado.generarPedidoCompleto("Pedido para proveedor", 
                             (ArrayList<Ventadetalle>) ordenventaQuery.getVentadetalleCollection());
-            System.out.println(pedidoGenerado);*/
+            System.out.println(pedidoGenerado);
             return Response.ok(facturaventa).build();
         } catch (Exception ex) {
             Logger.getLogger(OrdenventaFacadeREST.class.getName()).log(Level.SEVERE, null, ex);

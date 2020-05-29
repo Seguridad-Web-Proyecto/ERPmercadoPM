@@ -41,13 +41,13 @@ import restapplication.pojos.ProductoPOJO;
  * @author jcami
  */
 @Stateless
-public class APIConsumer {
+public class APIConsumerMercado {
     
-    private static final String pathProductos = "http://localhost:8080/ERPsubproveedoresPM/webresources/productos";
-    private static final String pathCategorias = "http://localhost:8080/ERPsubproveedoresPM/webresources/categorias";
+    private static final String pathProductos = "http://localhost:8080/ERPproveedoresPM/webresources/productos";
+    private static final String pathCategorias = "http://localhost:8080/ERPproveedoresPM/webresources/categorias";
     
     private static final String USER_AGENT = "Mozilla/5.0";
-     private static final String URL_BASE = "https://8b1574d9cda6.ngrok.io/ERPproveedoresPM/webresources";
+     private static final String URL_BASE = "http://localhost:8080/ERPproveedoresPM/webresources";
     private static WebTarget webTarget;
     private static Client clientHttp;
     private static Invocation.Builder invocationBuilder;
@@ -178,7 +178,7 @@ public class APIConsumer {
     }
     
     public static Response realizarPedido(Ordenventa ordenventa){
-        System.out.println("Mercado -> Realizando pedido a proveedores...");
+        System.out.println("Supermercado -> Proveedores. Realizando pedido a proveedores...");
         clientHttp = ClientBuilder.newClient();
         webTarget = clientHttp.target(URL_BASE).path("/pedidos");
         invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
@@ -189,7 +189,7 @@ public class APIConsumer {
     }
     
     public static Response agregarDetallesAlPedido(Ordenventa ordenventa){
-        System.out.println("Proveedores -> Agregando detalles al pedido");
+        System.out.println("Supermercado -> Proveedores. Agregando detalles al pedido");
         if(ordenventa.getVentadetalleCollection()==null) return null;
         clientHttp = ClientBuilder.newClient();
         webTarget = clientHttp.target(URL_BASE).path("/pedidos/detalles");
@@ -201,7 +201,7 @@ public class APIConsumer {
     }
     
     public static Response concluirPedido(Ordenventa ordenventa){
-        System.out.println("Solicitando el pedido...");
+        System.out.println("Supermercado -> Proveedores. Solicitando el pedido...");
         clientHttp = ClientBuilder.newClient();
         webTarget = clientHttp.target(URL_BASE).path("/pedidos/solicitar");
         invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
@@ -217,7 +217,7 @@ public class APIConsumer {
         ordenventa.setClienteid(cliente);
         ordenventa.setDescripcion(descripcion);
         ordenventa.setVentadetalleCollection(ventaDetalleList);
-        Response responseOrdenVenta = APIConsumer.realizarPedido(ordenventa);
+        Response responseOrdenVenta = APIConsumerMercado.realizarPedido(ordenventa);
         if(responseOrdenVenta.getStatus()!=200){
             String msg = responseOrdenVenta.readEntity(String.class);
             throw new Exception("Whoops!!. Error al realizar un pedido!\n"+msg);
@@ -225,13 +225,13 @@ public class APIConsumer {
         // DETALLES
         Ordenventa ordenVentaResult = responseOrdenVenta.readEntity(Ordenventa.class);
         ordenVentaResult.setVentadetalleCollection(ventaDetalleList);
-        Response responseDetalles = APIConsumer.agregarDetallesAlPedido(ordenVentaResult);
+        Response responseDetalles = APIConsumerMercado.agregarDetallesAlPedido(ordenVentaResult);
         if(responseDetalles.getStatus()!=200){
             String msg = responseDetalles.readEntity(String.class);
             throw new Exception("Whoops!!. Error al añadir los detalles al pedido!\n"+msg); 
         }
         // CONLUYENDO PEDIDO Y RECIBIENDO LA FACTURA
-        Response responseCompletarPedido = APIConsumer.concluirPedido(ordenVentaResult);
+        Response responseCompletarPedido = APIConsumerMercado.concluirPedido(ordenVentaResult);
         Facturaventa facturaVenta = responseCompletarPedido.readEntity(Facturaventa.class);
         if(responseCompletarPedido.getStatus()!=200){
             throw new Exception("Whoops!!. Error al concluir el pedido!");

@@ -28,7 +28,7 @@ public class SolicitarPedidos {
         System.out.println(ordenventa);
         Response response = pruebaAgregarDetallesAlPedido(ordenventa);
         System.out.println("Solicitando pedido...");
-        Response responseSolicitar = APIConsumer.concluirPedido(ordenventa);
+        Response responseSolicitar = APIConsumerMercado.concluirPedido(ordenventa);
         System.out.println("Respuesta: "+responseSolicitar.getStatus());*/
         try {
             ArrayList<Ventadetalle> detalles = new ArrayList<>();
@@ -40,7 +40,7 @@ public class SolicitarPedidos {
                 ventadetalle.setCantidad(10);
                 detalles.add(ventadetalle);
             }
-            Ordenventa ordenventa = APIConsumer.generarPedidoCompleto("Realizando prueba de solicitud de productos", detalles);
+            Ordenventa ordenventa = APIConsumerMercado.generarPedidoCompleto("Realizando prueba de solicitud de productos", detalles);
             System.out.println(ordenventa);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -56,7 +56,7 @@ public class SolicitarPedidos {
         ordenventa.setDescripcion("Orden de venta. Supermercado - proveedor");
         //agregarDetallesAlPedido(ordenventa, detalles);
         System.out.println("Realizando pedido...");
-        Response responseOrdenVenta = APIConsumer.realizarPedido(ordenventa);
+        Response responseOrdenVenta = APIConsumerMercado.realizarPedido(ordenventa);
         System.out.println("Respuesta: "+responseOrdenVenta.getStatus());
         if(responseOrdenVenta.getStatus()!=200){
             return null;
@@ -78,7 +78,7 @@ public class SolicitarPedidos {
             ventadetalleList.add(ventadetalle);
         }
         ordenventa.setVentadetalleCollection(ventadetalleList);
-        Response responseDetalles = APIConsumer.agregarDetallesAlPedido(ordenventa);
+        Response responseDetalles = APIConsumerMercado.agregarDetallesAlPedido(ordenventa);
         System.out.println("Respuesta: "+responseDetalles.getStatus());
         return responseDetalles;
     }

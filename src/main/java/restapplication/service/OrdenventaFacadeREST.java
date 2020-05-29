@@ -77,7 +77,7 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(Ordenventa entity) {
-        // CLIENTE
+        
         Cliente cliente = clienteJpaController.findClienteByEmail(entity.getClienteid().getEmail());
         if(cliente==null){
             return Response.status(Status.BAD_REQUEST).build();

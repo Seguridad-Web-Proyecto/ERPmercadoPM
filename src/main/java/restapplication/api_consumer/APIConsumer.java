@@ -9,12 +9,20 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entidades.Categoria;
+import entidades.Cliente;
+import entidades.Compradetalle;
+import entidades.Facturacompra;
+import entidades.Facturaventa;
+import entidades.Ordencompra;
 import entidades.Ordenventa;
 import entidades.Producto;
+import entidades.Proveedor;
+import entidades.Ventadetalle;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
@@ -32,15 +40,20 @@ import restapplication.pojos.ProductoPOJO;
  *
  * @author jcami
  */
+@Stateless
 public class APIConsumer {
     
-    private static final String pathProductos = "http://localhost:8080/ERPproveedoresPM/webresources/productos";
-    private static final String pathCategorias = "http://localhost:8080/ERPproveedoresPM/webresources/categorias";
+    private static final String pathProductos = "http://localhost:8080/ERPsubproveedoresPM/webresources/productos";
+    private static final String pathCategorias = "http://localhost:8080/ERPsubproveedoresPM/webresources/categorias";
     
     private static final String USER_AGENT = "Mozilla/5.0";
+     private static final String URL_BASE = "https://8b1574d9cda6.ngrok.io/ERPproveedoresPM/webresources";
+    private static WebTarget webTarget;
+    private static Client clientHttp;
+    private static Invocation.Builder invocationBuilder;
     
     public static List<ProductoPOJO> productos(String path){
-        System.out.println("Solicitando productos Mercado -> Proveedor");
+        System.out.println("Solicitando productos. Proveedor -> Subproveedor");
         List<ProductoPOJO> productoList = new ArrayList<>();
         String url = pathProductos+path;
         String respuesta = "";
@@ -50,17 +63,6 @@ public class APIConsumer {
             String jsonString = new String(respuesta.getBytes("ISO-8859-1"), "UTF-8");
             ObjectMapper mapper = new ObjectMapper();
             productoList = mapper.readValue(jsonString, new TypeReference<List<ProductoPOJO>>(){});
-//            for(Producto p: productoList){
-//                System.out.println("-------------------");
-//                System.out.println("productoid: "+p.getProductoid());
-//                System.out.println("nombre: "+p.getNombre());
-//                System.out.println("descripcion: "+p.getDescripcion());
-//                System.out.println("unidad de medida: "+p.getUnidadMedida());
-//                System.out.println("categoría[ ");
-//                System.out.println("categoriaid: "+p.getCategoriaid());
-//                System.out.println("categoría nombre: "+p.getCategoriaid().getNombre());
-//                System.out.println("]\n-------------------");
-//            }
         } catch (Exception e) {
             // Manejar excepción
             e.printStackTrace();
@@ -68,25 +70,19 @@ public class APIConsumer {
         return productoList;
     }
     
-    public static void getProductosMercado(){
-        System.out.println("Solicitando productos a mí mismo");
+    public static List<ProductoPOJO> getProductos() throws JsonProcessingException{
+        System.out.println("Solicitando productos. Proveedor -> Subproveedor");
         clientHttp = ClientBuilder.newClient();
-        webTarget = clientHttp.target("http://localhost:8080/ERPmercadoPM/webresources/productos").path("/17");
+        webTarget = clientHttp.target(URL_BASE).path("/productos");
         invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.get();
         System.out.println("Respuesta: "+response.getStatus());
-        try {
-            String responseString = response.readEntity(String.class);
-            Producto producto = new ObjectMapper().
-                    readValue(responseString, new TypeReference<Producto>(){});
-            System.out.println(producto);
-        } catch (JsonProcessingException ex) {
-            Logger.getLogger(APIConsumer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        List<ProductoPOJO> productosPOJO = new ObjectMapper().
+                readValue(response.readEntity(String.class), new TypeReference<List<ProductoPOJO>>(){});
+        return productosPOJO;
     }
     
     public static ProductoPOJO obtenerProductoXId(Long productoid){
-        System.out.println("Solicitando producto "+productoid+" Mercado -> Proveedor");
         String url = pathProductos+"/"+productoid.toString();
         String respuesta = "";
         ProductoPOJO productoPOJO= new ProductoPOJO();
@@ -181,11 +177,6 @@ public class APIConsumer {
         return respuesta;
     }
     
-    private static final String URL_BASE = "http://localhost:8080/ERPproveedoresPM/webresources";
-    private static WebTarget webTarget;
-    private static Client clientHttp;
-    private static Invocation.Builder invocationBuilder;
-    
     public static Response realizarPedido(Ordenventa ordenventa){
         System.out.println("Mercado -> Realizando pedido a proveedores...");
         clientHttp = ClientBuilder.newClient();
@@ -214,9 +205,41 @@ public class APIConsumer {
         clientHttp = ClientBuilder.newClient();
         webTarget = clientHttp.target(URL_BASE).path("/pedidos/solicitar");
         invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        Response response = invocationBuilder.put(Entity.entity(ordenventa, MediaType.APPLICATION_JSON));
+        Response response = invocationBuilder.post(Entity.entity(ordenventa, MediaType.APPLICATION_JSON));
         System.out.println("Respuesta: "+response.getStatus());
         return response;
     }
+    
+    public static Ordenventa generarPedidoCompleto(String descripcion, ArrayList<Ventadetalle> ventaDetalleList) throws Exception{
+        Ordenventa ordenventa = new Ordenventa();
+        Cliente cliente = new Cliente();
+        cliente.setEmail("supermercado@company.mx");
+        ordenventa.setClienteid(cliente);
+        ordenventa.setDescripcion(descripcion);
+        ordenventa.setVentadetalleCollection(ventaDetalleList);
+        Response responseOrdenVenta = APIConsumer.realizarPedido(ordenventa);
+        if(responseOrdenVenta.getStatus()!=200){
+            String msg = responseOrdenVenta.readEntity(String.class);
+            throw new Exception("Whoops!!. Error al realizar un pedido!\n"+msg);
+        }
+        // DETALLES
+        Ordenventa ordenVentaResult = responseOrdenVenta.readEntity(Ordenventa.class);
+        ordenVentaResult.setVentadetalleCollection(ventaDetalleList);
+        Response responseDetalles = APIConsumer.agregarDetallesAlPedido(ordenVentaResult);
+        if(responseDetalles.getStatus()!=200){
+            String msg = responseDetalles.readEntity(String.class);
+            throw new Exception("Whoops!!. Error al añadir los detalles al pedido!\n"+msg); 
+        }
+        // CONLUYENDO PEDIDO Y RECIBIENDO LA FACTURA
+        Response responseCompletarPedido = APIConsumer.concluirPedido(ordenVentaResult);
+        Facturaventa facturaVenta = responseCompletarPedido.readEntity(Facturaventa.class);
+        if(responseCompletarPedido.getStatus()!=200){
+            throw new Exception("Whoops!!. Error al concluir el pedido!");
+        }
+        ordenVentaResult.setFacturaid(facturaVenta);
+        return ordenVentaResult;
+    }
+    
+    
     
 }

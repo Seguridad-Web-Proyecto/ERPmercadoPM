@@ -13,6 +13,8 @@ import entidades.Producto;
 import entidades.Ventadetalle;
 import entidades.VentadetallePK;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.Response;
 
 /**
@@ -28,7 +30,22 @@ public class SolicitarPedidos {
         System.out.println("Solicitando pedido...");
         Response responseSolicitar = APIConsumer.concluirPedido(ordenventa);
         System.out.println("Respuesta: "+responseSolicitar.getStatus());*/
-        APIConsumer.getProductosMercado();
+        try {
+            ArrayList<Ventadetalle> detalles = new ArrayList<>();
+            for(long i=40; i<42; i++){
+                Producto producto = new Producto();
+                producto.setProductoid(i);
+                Ventadetalle ventadetalle = new Ventadetalle();
+                ventadetalle.setProducto(producto);
+                ventadetalle.setCantidad(10);
+                detalles.add(ventadetalle);
+            }
+            Ordenventa ordenventa = APIConsumer.generarPedidoCompleto("Realizando prueba de solicitud de productos", detalles);
+            System.out.println(ordenventa);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(SolicitarPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public static Ordenventa pruebaGenerarPedido() {

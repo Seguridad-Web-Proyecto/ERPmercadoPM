@@ -6,15 +6,21 @@
 package restapplication.service;
 
 import dao.ClienteJpaController;
+import entidades.Categoria;
 import entidades.Cliente;
+import entidades.Facturaventa;
 import entidades.Ganancia;
+import entidades.Ordencompra;
 import entidades.Ordenventa;
 import entidades.Producto;
+import entidades.Proveedor;
 import entidades.Ventadetalle;
 import entidades.VentadetallePK;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -55,6 +61,12 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
     
     @EJB
     private beans.sessions.GananciaFacade gananciaFacade;
+    
+   @EJB
+   private beans.sessions.ProveedorFacade proveedorFacade;
+   
+   @EJB
+   private beans.sessions.FacturaventaFacade facturaVentaFacade;
 
     public OrdenventaFacadeREST() {
         super(Ordenventa.class);
@@ -83,20 +95,6 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
         return response;
     }
     
-    @POST
-    @Path("/solicitar")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response realizarPedido(Ordenventa entity){
-        Ordenventa ordenventa = super.find(entity.getOrdenventaid());
-        if(ordenventa==null){
-            return Response.status(Status.BAD_REQUEST).build();
-        }else{
-            ordenventa.setStatus("Pedido realizado!");
-            return Response.ok().build();
-        }
-    }
-    
     @PUT
     @Path("/detalles")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -112,13 +110,12 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
             }
             Ordenventa ordenventa = new Ordenventa(ordenventaQuery.getOrdenventaid(), ordenventaQuery.getFechaVenta(),
                     ordenventaQuery.getStatus(), ordenventaQuery.getIva(), ordenventaQuery.getSubtotal(), 
-                    ordenventaQuery.getTotal(), ordenventaQuery.getStatus());
+                    ordenventaQuery.getTotal(), ordenventaQuery.getDescripcion());
             ordenventa.setClienteid(ordenventaQuery.getClienteid());
                        
             if(venta.getVentadetalleCollection()==null) return Response.status(Status.BAD_REQUEST).build();
             
             ArrayList<Ventadetalle> detalles = new ArrayList<>();
-            detalles.addAll(ordenventaQuery.getVentadetalleCollection());
             for(Ventadetalle entity: venta.getVentadetalleCollection()){
                 if(entity.getProducto()==null || 
                         entity.getProducto().getProductoid()==null){
@@ -130,12 +127,7 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
                 if(productoAPI==null){
                     return Response.status(Status.NOT_FOUND).build();
                 }
-                Producto productoIngresado = productoFacade.createEntity(productoAPI);
-                Ganancia ganancia = new Ganancia();
-                ganancia.setPorcentaje((short)20);
-                ganancia.setProductoid(productoIngresado);
-                Ganancia gananciaIngresada = gananciaFacade.createEntity(ganancia);
-                productoIngresado.setGanancia(gananciaIngresada);
+                Producto productoIngresado = ingresarOBuscarProducto(productoAPI);
                 Producto p = Common.aplicarGananciaAlProducto(productoIngresado);
                 //VENTA DETALLE
                 entity.setPrecioUnitario(p.getPrecioUnitario());
@@ -156,14 +148,43 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
             super.edit(ordenventa);
             return Response.ok().build();
         }catch(Exception ex){
+            ex.printStackTrace();
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
     }
     
+    @POST
+    @Path("/solicitar")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response realizarPedido(Ordenventa entity){
+        try{
+            //Consultando que exista la orden, y haciendo una copia de la orden
+            Ordenventa ordenventaQuery = super.find(entity.getOrdenventaid());
+            if(ordenventaQuery==null){
+                return Response.status(Status.BAD_REQUEST).build();
+            }
+            
+            ordenventaQuery.setStatus("Pedido realizado!");
+            //Creando factura de venta
+            Facturaventa facturaventa = WebServicesUtils.emitirFactura(ordenventaQuery);
+            /*Facturaventa facturaCreada = facturaVentaFacade.createEntity(facturaventa);
+            ordenventa.setFacturaid(facturaCreada);*/
+            
+            // solicitar pedidos subproveedores
+            /*Ordenventa pedidoGenerado = 
+                    APIConsumer.generarPedidoCompleto("Pedido para proveedor", 
+                            (ArrayList<Ventadetalle>) ordenventaQuery.getVentadetalleCollection());
+            System.out.println(pedidoGenerado);*/
+            return Response.ok(facturaventa).build();
+        } catch (Exception ex) {
+            Logger.getLogger(OrdenventaFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.serverError().build();
+        }
+    }
     
     @GET
     @Path("{id}")
-    //@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces(MediaType.APPLICATION_JSON)
     public Ordenventa find(@PathParam("id") Long id) {
         return Common.limpiarOrdenVenta(super.find(id));
@@ -171,7 +192,6 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
 
     @GET
     @Override
-    //@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces(MediaType.APPLICATION_JSON)
     public List<Ordenventa> findAll() {
         List<Ordenventa> ordenes = super.findAll();
@@ -184,7 +204,6 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
 
     @GET
     @Path("{from}/{to}")
-    //@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces(MediaType.APPLICATION_JSON)
     public List<Ordenventa> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         List<Ordenventa> ordenes = super.findRange(new int[]{from, to});
@@ -205,6 +224,53 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+    private void guardarOrden(Ordenventa ordenventa){
+        Ordencompra ordencompra = Common.convertirOrdenCompraAVenta(ordenventa);
+        Proveedor proveedor = proveedorFacade.find((long)1);
+    }
+    
+    private Producto ingresarOBuscarProducto(Producto producto){
+        try{
+            Producto productoIngresado = productoFacade.find(producto.getProductoid());
+            if(productoIngresado==null){
+                producto.setGanancia(null);
+                producto.setVentadetalleCollection(null);
+                producto.setCompradetalleCollection(null);
+                Categoria categoria = ingresarOBuscarCategoria(producto.getCategoriaid());
+                producto.setCategoriaid(categoria);
+                Producto productoP = productoFacade.createEntity(producto);
+                Ganancia ganancia = new Ganancia();
+                ganancia.setPorcentaje((short)10);
+                ganancia.setProductoid(productoP);
+                Ganancia gananciaIngresada = gananciaFacade.createEntity(ganancia);
+                productoP.setGanancia(gananciaIngresada);
+                return productoP;
+            }
+            return productoIngresado;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    @EJB
+    private beans.sessions.CategoriaFacade categoriaFacade;
+    
+    private Categoria ingresarOBuscarCategoria(Categoria categoria){
+        try{
+            if(categoria==null) return null;
+            Categoria categoriaIngresada = categoriaFacade.find(categoria.getCategoriaid());
+            if(categoriaIngresada==null){
+                Categoria c = categoriaFacade.createEntity(categoria);
+                return c;
+            }
+            return categoriaIngresada;
+        }catch(Exception ex){
+            ex.printStackTrace();
+            return null;
+        }
     }
     
 }

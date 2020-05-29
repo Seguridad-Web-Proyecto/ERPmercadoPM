@@ -5,12 +5,16 @@
  */
 package restapplication.api_consumer;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entidades.Categoria;
 import entidades.Ordenventa;
+import entidades.Producto;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
@@ -64,7 +68,25 @@ public class APIConsumer {
         return productoList;
     }
     
+    public static void getProductosMercado(){
+        System.out.println("Solicitando productos a mí mismo");
+        clientHttp = ClientBuilder.newClient();
+        webTarget = clientHttp.target("http://localhost:8080/ERPmercadoPM/webresources/productos").path("/17");
+        invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+        Response response = invocationBuilder.get();
+        System.out.println("Respuesta: "+response.getStatus());
+        try {
+            String responseString = response.readEntity(String.class);
+            Producto producto = new ObjectMapper().
+                    readValue(responseString, new TypeReference<Producto>(){});
+            System.out.println(producto);
+        } catch (JsonProcessingException ex) {
+            Logger.getLogger(APIConsumer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public static ProductoPOJO obtenerProductoXId(Long productoid){
+        System.out.println("Solicitando producto "+productoid+" Mercado -> Proveedor");
         String url = pathProductos+"/"+productoid.toString();
         String respuesta = "";
         ProductoPOJO productoPOJO= new ProductoPOJO();

@@ -45,6 +45,7 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
         ganancia.setPorcentaje((short)10);
         producto.setGanancia(ganancia);
         Producto p = Common.aplicarGananciaAlProducto(producto);
+        p.getCategoriaid().setNombre(null);
         return p;
     }
     
@@ -60,6 +61,7 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
             ganancia.setPorcentaje((short)10);
             producto.setGanancia(ganancia);
             Producto p = Common.aplicarGananciaAlProducto(producto);
+            p.getCategoriaid().setNombre(null);
             returnList.add(p);
         }
         return returnList;

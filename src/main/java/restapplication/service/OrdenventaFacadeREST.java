@@ -17,6 +17,7 @@ import entidades.Proveedor;
 import entidades.Ventadetalle;
 import entidades.VentadetallePK;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -165,17 +166,20 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
             }
             
             ordenventaQuery.setStatus("Pedido realizado!");
-            //Creando factura de venta
-            Facturaventa facturaventa = WebServicesUtils.emitirFactura(ordenventaQuery);
-            /*Facturaventa facturaCreada = facturaVentaFacade.createEntity(facturaventa);
-            ordenventa.setFacturaid(facturaCreada);*/
-            
+            ArrayList<Ventadetalle> detalles = new ArrayList<>();
+            for(Ventadetalle vd: ordenventaQuery.getVentadetalleCollection()){
+                Producto producto = new Producto();
+                producto.setProductoid(vd.getProducto().getProductoid());
+                Ventadetalle ventadetalle = new Ventadetalle();
+                ventadetalle.setCantidad(vd.getCantidad());
+                ventadetalle.setProducto(producto);
+                detalles.add(ventadetalle);
+            }
             // solicitar pedidos subproveedores
             Ordenventa pedidoGenerado = 
-                    APIConsumerMercado.generarPedidoCompleto("Pedido para proveedor", 
-                            (ArrayList<Ventadetalle>) ordenventaQuery.getVentadetalleCollection());
+                    APIConsumerMercado.generarPedidoCompleto("Pedido para proveedor", detalles);
             System.out.println(pedidoGenerado);
-            return Response.ok(facturaventa).build();
+            return Response.ok().build();
         } catch (Exception ex) {
             Logger.getLogger(OrdenventaFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
             return Response.serverError().build();

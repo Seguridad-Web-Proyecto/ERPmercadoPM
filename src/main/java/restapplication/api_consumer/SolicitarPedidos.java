@@ -32,7 +32,7 @@ public class SolicitarPedidos {
         System.out.println("Respuesta: "+responseSolicitar.getStatus());*/
         try {
             ArrayList<Ventadetalle> detalles = new ArrayList<>();
-            for(long i=40; i<42; i++){
+            for(long i=20; i<22; i++){
                 Producto producto = new Producto();
                 producto.setProductoid(i);
                 Ventadetalle ventadetalle = new Ventadetalle();

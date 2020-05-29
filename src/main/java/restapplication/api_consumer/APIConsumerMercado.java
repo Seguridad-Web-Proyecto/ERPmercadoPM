@@ -47,7 +47,7 @@ public class APIConsumerMercado {
     private static final String pathCategorias = "http://localhost:8080/ERPproveedoresPM/webresources/categorias";
     
     private static final String USER_AGENT = "Mozilla/5.0";
-     private static final String URL_BASE = "http://localhost:8080/ERPproveedoresPM/webresources";
+    private static final String URL_BASE = "http://localhost:8080/ERPproveedoresPM/webresources";
     private static WebTarget webTarget;
     private static Client clientHttp;
     private static Invocation.Builder invocationBuilder;
@@ -180,12 +180,16 @@ public class APIConsumerMercado {
     public static Response realizarPedido(Ordenventa ordenventa){
         System.out.println("Supermercado -> Proveedores. Realizando pedido a proveedores...");
         clientHttp = ClientBuilder.newClient();
-        webTarget = clientHttp.target(URL_BASE).path("/pedidos");
+        /*webTarget = clientHttp.target(URL_BASE).path("/pedidos");
         invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.post(
-                Entity.entity(ordenventa, MediaType.APPLICATION_JSON));
+                Entity.entity(0, MediaType.APPLICATION_JSON));
         System.out.println("Respuesta: "+response.getStatus());
-        return response;
+        return response;*/
+        String entity = clientHttp.target(URL_BASE)
+                              .path("/pedidos").request()
+                              .post(Entity.json(ordenventa), String.class);
+        return Response.ok(entity).build();
     }
     
     public static Response agregarDetallesAlPedido(Ordenventa ordenventa){
@@ -217,8 +221,9 @@ public class APIConsumerMercado {
         ordenventa.setClienteid(cliente);
         ordenventa.setDescripcion(descripcion);
         ordenventa.setVentadetalleCollection(ventaDetalleList);
-        Response responseOrdenVenta = APIConsumerMercado.realizarPedido(ordenventa);
-        if(responseOrdenVenta.getStatus()!=200){
+        
+        Response responseOrdenVenta = realizarPedido(ordenventa);
+        /*if(responseOrdenVenta.getStatus()!=200){
             String msg = responseOrdenVenta.readEntity(String.class);
             throw new Exception("Whoops!!. Error al realizar un pedido!\n"+msg);
         }
@@ -236,8 +241,8 @@ public class APIConsumerMercado {
         if(responseCompletarPedido.getStatus()!=200){
             throw new Exception("Whoops!!. Error al concluir el pedido!");
         }
-        ordenVentaResult.setFacturaid(facturaVenta);
-        return ordenVentaResult;
+        ordenVentaResult.setFacturaid(facturaVenta);*/
+        return null;
     }
     
     

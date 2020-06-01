@@ -21,6 +21,8 @@ import entidades.Ventadetalle;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -43,11 +45,11 @@ import restapplication.pojos.ProductoPOJO;
 @Stateless
 public class APIConsumerMercado {
     
-    private static final String pathProductos = "http://localhost:8080/ERPproveedoresPM/webresources/productos";
-    private static final String pathCategorias = "http://localhost:8080/ERPproveedoresPM/webresources/categorias";
+    private static final String pathProductos = "https://a46622376bc8.ngrok.io/ERPproveedoresPM/webresources/productos";
+    private static final String pathCategorias = "https://a46622376bc8.ngrok.io/ERPproveedoresPM/webresources/categorias";
     
     private static final String USER_AGENT = "Mozilla/5.0";
-    private static final String URL_BASE = "http://localhost:8080/ERPproveedoresPM/webresources";
+    private static final String URL_BASE = "https://a46622376bc8.ngrok.io/ERPproveedoresPM/webresources";
     private static WebTarget webTarget;
     private static Client clientHttp;
     private static Invocation.Builder invocationBuilder;
@@ -177,74 +179,95 @@ public class APIConsumerMercado {
         return respuesta;
     }
     
-    public static Response realizarPedido(Ordenventa ordenventa){
-        System.out.println("Supermercado -> Proveedores. Realizando pedido a proveedores...");
-        clientHttp = ClientBuilder.newClient();
-        /*webTarget = clientHttp.target(URL_BASE).path("/pedidos");
-        invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        Response response = invocationBuilder.post(
-                Entity.entity(0, MediaType.APPLICATION_JSON));
-        System.out.println("Respuesta: "+response.getStatus());
-        return response;*/
-        String entity = clientHttp.target(URL_BASE)
-                              .path("/pedidos").request()
-                              .post(Entity.json(ordenventa), String.class);
-        return Response.ok(entity).build();
+    public static Object realizarPedido(Ordenventa ordenventa){
+        String jsonOrdenVenta = ClassToJson.ordenVentaToJson(ordenventa);
+        String responseString = "";
+        try {
+            System.out.println(jsonOrdenVenta);
+            ObjectMapper mapper = new ObjectMapper();
+            Ordenventa pruebaOrden = mapper.readValue(jsonOrdenVenta, new TypeReference<Ordenventa>(){});
+            
+            responseString = ClienteHTTP.httpPOST(URL_BASE+"/pedidos", jsonOrdenVenta);
+            Ordenventa ordenventaResult = mapper.readValue(responseString, new TypeReference<Ordenventa>(){});
+            return ordenventaResult;
+        } catch (Exception ex) {
+            Logger.getLogger(APIConsumerMercado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return responseString;
     }
     
-    public static Response agregarDetallesAlPedido(Ordenventa ordenventa){
-        System.out.println("Supermercado -> Proveedores. Agregando detalles al pedido");
+    public static Object agregarDetallesAlPedido(Ordenventa ordenventa) throws JsonProcessingException{
+        System.out.println("Proveedores -> Subproveedores. Agregando detalles al pedido");
         if(ordenventa.getVentadetalleCollection()==null) return null;
-        clientHttp = ClientBuilder.newClient();
-        webTarget = clientHttp.target(URL_BASE).path("/pedidos/detalles");
-        invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        Response response = invocationBuilder.put(Entity.entity(ordenventa, 
-                MediaType.APPLICATION_JSON));
-        System.out.println("Respuesta: "+response.getStatus());
-        return response;
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonOrdenVenta = mapper.writeValueAsString(ordenventa);
+        String responseString = "";
+        try {
+            System.out.println(jsonOrdenVenta);
+            Ordenventa pruebaOrden = mapper.readValue(jsonOrdenVenta, new TypeReference<Ordenventa>(){});
+            responseString = ClienteHTTP.httpPUT(URL_BASE+"/pedidos/detalles", jsonOrdenVenta);
+            return responseString;
+        } catch (Exception ex) {
+            Logger.getLogger(APIConsumerMercado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return responseString;
     }
     
-    public static Response concluirPedido(Ordenventa ordenventa){
-        System.out.println("Supermercado -> Proveedores. Solicitando el pedido...");
-        clientHttp = ClientBuilder.newClient();
-        webTarget = clientHttp.target(URL_BASE).path("/pedidos/solicitar");
-        invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        Response response = invocationBuilder.post(Entity.entity(ordenventa, MediaType.APPLICATION_JSON));
-        System.out.println("Respuesta: "+response.getStatus());
-        return response;
+    public static Object concluirPedido(Ordenventa ordenventa) throws JsonProcessingException{
+        System.out.println("Proveedores -> Subproveedores. Solicitando el pedido...");
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonOrdenVenta = mapper.writeValueAsString(ordenventa);
+        String responseString = "";
+        try {
+            System.out.println(jsonOrdenVenta);
+            Ordenventa pruebaOrden = mapper.readValue(jsonOrdenVenta, new TypeReference<Ordenventa>(){});
+            responseString = ClienteHTTP.httpPOST(URL_BASE+"/pedidos/solicitar", jsonOrdenVenta);
+            Facturaventa facturaventaResult = mapper.readValue(responseString, new TypeReference<Facturaventa>(){});
+            return facturaventaResult;
+        } catch (Exception ex) {
+            Logger.getLogger(APIConsumerMercado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return responseString;
     }
     
     public static Ordenventa generarPedidoCompleto(String descripcion, ArrayList<Ventadetalle> ventaDetalleList) throws Exception{
+        //CONSTRUYO EL OBJETO DE ORDEN DE VENTA
         Ordenventa ordenventa = new Ordenventa();
         Cliente cliente = new Cliente();
         cliente.setEmail("supermercado@company.mx");
         ordenventa.setClienteid(cliente);
         ordenventa.setDescripcion(descripcion);
         ordenventa.setVentadetalleCollection(ventaDetalleList);
+        //ENVIANDO ORDEN DE VENTA
+        String msg; //String response
         
-        Response responseOrdenVenta = realizarPedido(ordenventa);
-        /*if(responseOrdenVenta.getStatus()!=200){
-            String msg = responseOrdenVenta.readEntity(String.class);
+        Object responseOrdenVenta = APIConsumerMercado.realizarPedido(ordenventa);
+        Ordenventa ordenVentaResult;
+        try{
+            ordenVentaResult = (Ordenventa) responseOrdenVenta;
+        }catch(Exception ex){ //si no puede castear el objeto es un error que arrojó
+            msg = String.valueOf(responseOrdenVenta);
             throw new Exception("Whoops!!. Error al realizar un pedido!\n"+msg);
         }
         // DETALLES
-        Ordenventa ordenVentaResult = responseOrdenVenta.readEntity(Ordenventa.class);
         ordenVentaResult.setVentadetalleCollection(ventaDetalleList);
-        Response responseDetalles = APIConsumerMercado.agregarDetallesAlPedido(ordenVentaResult);
-        if(responseDetalles.getStatus()!=200){
-            String msg = responseDetalles.readEntity(String.class);
+        Object responseDetalles = APIConsumerMercado.agregarDetallesAlPedido(ordenVentaResult);
+        msg = String.valueOf(responseDetalles);
+        if(!msg.equals("OK")){
             throw new Exception("Whoops!!. Error al añadir los detalles al pedido!\n"+msg); 
         }
         // CONLUYENDO PEDIDO Y RECIBIENDO LA FACTURA
-        Response responseCompletarPedido = APIConsumerMercado.concluirPedido(ordenVentaResult);
-        Facturaventa facturaVenta = responseCompletarPedido.readEntity(Facturaventa.class);
-        if(responseCompletarPedido.getStatus()!=200){
+        Object responseCompletarPedido = APIConsumerMercado.concluirPedido(ordenVentaResult);
+        Facturaventa facturaventa = null;
+        try{
+            facturaventa = (Facturaventa) responseCompletarPedido;
+        }catch(Exception ex){
+            msg = String.valueOf(responseCompletarPedido);
             throw new Exception("Whoops!!. Error al concluir el pedido!");
         }
-        ordenVentaResult.setFacturaid(facturaVenta);*/
-        return null;
+        ordenVentaResult.setFacturaid(facturaventa);
+        return ordenVentaResult;
     }
-    
     
     
 }

@@ -32,7 +32,7 @@ public class SolicitarPedidos {
         System.out.println("Respuesta: "+responseSolicitar.getStatus());*/
         try {
             ArrayList<Ventadetalle> detalles = new ArrayList<>();
-            for(long i=20; i<22; i++){
+            for(long i=40; i<42; i++){
                 Producto producto = new Producto();
                 producto.setProductoid(i);
                 Ventadetalle ventadetalle = new Ventadetalle();
@@ -40,8 +40,7 @@ public class SolicitarPedidos {
                 ventadetalle.setCantidad(10);
                 detalles.add(ventadetalle);
             }
-            Ordenventa ordenventa = APIConsumerMercado.generarPedidoCompleto("Realizando prueba de solicitud de productos", detalles);
-            System.out.println(ordenventa);
+            APIConsumerMercado.generarPedidoCompleto("Realizando prueba de solicitud de productos", detalles);
         } catch (Exception ex) {
             ex.printStackTrace();
             Logger.getLogger(SolicitarPedidos.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,13 +55,13 @@ public class SolicitarPedidos {
         ordenventa.setDescripcion("Orden de venta. Supermercado - proveedor");
         //agregarDetallesAlPedido(ordenventa, detalles);
         System.out.println("Realizando pedido...");
-        Response responseOrdenVenta = APIConsumerMercado.realizarPedido(ordenventa);
+        /*Response responseOrdenVenta = APIConsumerMercado.realizarPedido(ordenventa);
         System.out.println("Respuesta: "+responseOrdenVenta.getStatus());
         if(responseOrdenVenta.getStatus()!=200){
             return null;
         }
-        Ordenventa entityResult = responseOrdenVenta.readEntity(Ordenventa.class);
-        return entityResult;
+        Ordenventa entityResult = responseOrdenVenta.readEntity(Ordenventa.class);*/
+        return null;
     }
     
     public static Response pruebaAgregarDetallesAlPedido(Ordenventa ordenventa){
@@ -78,9 +77,9 @@ public class SolicitarPedidos {
             ventadetalleList.add(ventadetalle);
         }
         ordenventa.setVentadetalleCollection(ventadetalleList);
-        Response responseDetalles = APIConsumerMercado.agregarDetallesAlPedido(ordenventa);
-        System.out.println("Respuesta: "+responseDetalles.getStatus());
-        return responseDetalles;
+        /*Response responseDetalles = APIConsumerMercado.agregarDetallesAlPedido(ordenventa);
+        System.out.println("Respuesta: "+responseDetalles.getStatus());*/
+        return null;
     }
     
 }

@@ -176,9 +176,7 @@ public class OrdenventaFacadeREST extends AbstractFacade<Ordenventa> {
                 detalles.add(ventadetalle);
             }
             // solicitar pedidos subproveedores
-            Ordenventa pedidoGenerado = 
-                    APIConsumerMercado.generarPedidoCompleto("Pedido para proveedor", detalles);
-            System.out.println(pedidoGenerado);
+            APIConsumerMercado.generarPedidoCompleto("Pedido para proveedor", detalles);
             return Response.ok().build();
         } catch (Exception ex) {
             Logger.getLogger(OrdenventaFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
